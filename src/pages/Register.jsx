@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../components/sections/Alert";
 
 const Register = () => {
 
@@ -8,6 +9,11 @@ const Register = () => {
     email: '',
     password: '',
     repeatedPassword: ''
+  });
+
+  const [alert, setAlert] = useState({
+    message: '',
+    error: false
   });
 
   const { nombre, email, password, repeatedPassword } = user;
@@ -22,7 +28,25 @@ const Register = () => {
   const handleSubtmit = async (e) => {
     e.preventDefault();
     if ([nombre, email, password, repeatedPassword].includes('')) {
-      console.log('Todos los campos son obligatorios');
+      setAlert({
+        message: 'Todos los campos son obligatorios',
+        error: true
+      });
+    } else if (password !== repeatedPassword) {
+      setAlert({
+        message: 'Los password no coinciden',
+        error: true
+      });
+    } else if (password.length < 6) {
+      setAlert({
+        message: 'El password debe contener al menos 6 caracteres',
+        error: true
+      });
+    } else {
+      setAlert({
+        message: '',
+        error: false
+      });
     }
   };
 
@@ -77,7 +101,6 @@ const Register = () => {
             value="Registrar"
             className="bg-sky-700 text-white font-bold rounded-md p-2 cursor-pointer transition-colors hover:bg-sky-800" />
         </form>
-
         <nav className="flex items-center justify-between w-4/5 max-w-sm mx-auto">
           <Link
             to="/"
@@ -92,6 +115,9 @@ const Register = () => {
             Olvidé mi password
           </Link>
         </nav>
+        {
+          alert.error && <Alert alert={alert} />
+        }
       </div>
     </section>
   );
