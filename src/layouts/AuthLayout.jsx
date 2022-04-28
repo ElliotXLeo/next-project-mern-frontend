@@ -1,14 +1,11 @@
 import { Outlet } from "react-router-dom";
 
-const AuthLayoutt = () => {
+const AuthLayout  = () => {
   return (
-    <section className="py-8 md:py-16">
-      <div className="container w-4/5 max-w-lg mx-auto bg-red-100">
-        <h1>AuthLayoutt</h1>
-        <Outlet />
-      </div>
-    </section>
+    <main className="flex flex-col justify-center min-h-screen">
+      <Outlet />
+    </main>
   );
 }
 
-export default AuthLayoutt;
+export default AuthLayout;
