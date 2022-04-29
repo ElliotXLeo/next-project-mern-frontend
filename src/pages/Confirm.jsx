@@ -1,17 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Alert from "../components/sections/Alert";
+import axiosInstance from "../config/axiosInstance";
 
 const Confirm = () => {
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
   const params = useParams();
   const { id } = params;
-
-  const method = 'GET';
-  const resource = `/api/users/confirm/${id}`;
-  const url = BACKEND_URL + resource;
 
   const [alert, setAlert] = useState({
     message: '',
@@ -23,11 +17,13 @@ const Confirm = () => {
   useEffect(() => {
     const fetchApi = async () => {
       try {
+        const method = 'GET';
+        const resource = `/users/confirm/${id}`;
         const options = {
           method,
-          url
+          url: resource
         };
-        const { data } = await axios(options);
+        const { data } = await axiosInstance(options);
         setAlert({
           message: data.message,
           error: false

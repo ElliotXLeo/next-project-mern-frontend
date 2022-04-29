@@ -1,17 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Alert from "../components/sections/Alert";
+import axiosInstance from "../config/axiosInstance";
 
 const NewPassword = () => {
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
   const params = useParams();
   const { token } = params;
-
-  const method = 'GET';
-  const resource = `/api/users/recover-password/${token}`;
-  const url = BACKEND_URL + resource;
 
   const [validToken, setValidToken] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
@@ -55,14 +49,13 @@ const NewPassword = () => {
     } else {
       try {
         const method = 'POST';
-        const resource = `/api/users/recover-password/${token}`;
-        const url = BACKEND_URL + resource;
+        const resource = `/users/recover-password/${token}`;
         const options = {
           method,
-          url,
+          url: resource,
           data: {password}
         };
-        const { data } = await axios(options);
+        const { data } = await axiosInstance(options);
         setPasswords({
           password: '',
           repeatedPassword: ''
@@ -84,11 +77,13 @@ const NewPassword = () => {
   useEffect(() => {
     const fetchApi = async () => {
       try {
+        const method = 'GET';
+        const resource = `/users/recover-password/${token}`;
         const options = {
           method,
-          url
+          url: resource,
         };
-        const { data } = await axios(options);
+        const { data } = await axiosInstance(options);
         setValidToken(true);
         setAlert({
           message: data.message,

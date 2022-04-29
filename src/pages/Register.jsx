@@ -1,11 +1,9 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/sections/Alert";
+import axiosInstance from "../config/axiosInstance";
 
 const Register = () => {
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -47,14 +45,13 @@ const Register = () => {
     } else {
       try {
         const method = 'POST';
-        const resource = '/api/users';
-        const url = BACKEND_URL + resource;
+        const resource = '/users';
         const options = {
           method,
-          url,
+          url: resource,
           data: user
         };
-        const { data } = await axios(options);
+        const { data } = await axiosInstance(options);
         setUser({
           name: '',
           email: '',

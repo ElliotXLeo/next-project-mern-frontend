@@ -1,11 +1,9 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/sections/Alert";
+import axiosInstance from "../config/axiosInstance";
 
 const RecoverPassword = () => {
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
   const [email, setEmail] = useState('');
   const [alert, setAlert] = useState({
     message: '',
@@ -22,14 +20,13 @@ const RecoverPassword = () => {
     } else {
       try {
         const method = 'POST';
-        const resource = '/api/users/recover-password';
-        const url = BACKEND_URL + resource;
+        const resource = '/users/recover-password';
         const options = {
           method,
-          url,
+          url: resource,
           data: { email }
         };
-        const { data } = await axios(options);
+        const { data } = await axiosInstance(options);
         setEmail('');
         setAlert({
           message: data.message,
