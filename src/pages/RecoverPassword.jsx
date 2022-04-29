@@ -1,19 +1,68 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../components/sections/Alert";
 
 const RecoverPassword = () => {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+  const [email, setEmail] = useState('');
+  const [alert, setAlert] = useState({
+    message: '',
+    error: false
+  });
+
+  const handleSubtmit = async (e) => {
+    e.preventDefault();
+    if (email === '') {
+      setAlert({
+        message: 'Email obligatorio',
+        error: true
+      });
+    } else {
+      try {
+        const method = 'POST';
+        const resource = '/api/users/recover-password';
+        const url = BACKEND_URL + resource
+        const options = {
+          method,
+          url,
+          data: { email }
+        };
+        const { data } = await axios(options);
+        setEmail('');
+        setAlert({
+          message: data.message,
+          error: false
+        });
+      } catch (error) {
+        setAlert({
+          message: error.response.data.message,
+          error: true
+        });
+      }
+    }
+  };
+
   return (
     <section className="py-8 md:py-16">
       <div className="flex flex-col gap-8 container mx-auto px-8 md:px-3">
         <h1 className="text-sky-600 text-4xl font-black text-center">
           Recupera tu acceso y no pierdas tus <span className="text-slate-700">proyectos</span>
         </h1>
-        <form action="" className="flex flex-col gap-4 bg-white border rounded-lg w-4/5 max-w-sm mx-auto p-4">
+        <form
+          onSubmit={handleSubtmit}
+          className="flex flex-col gap-4 bg-white border rounded-lg w-4/5 max-w-sm mx-auto p-4"
+        >
           <input
             type="email"
             id="email"
             placeholder="Email"
             className="w-full border rounded-md p-2"
-            required />
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          // required 
+          />
           <input
             type="submit"
             value="Recuperar"
@@ -34,6 +83,9 @@ const RecoverPassword = () => {
             No tengo cuenta
           </Link>
         </nav>
+        {
+          alert.message && <Alert alert={alert} />
+        }
       </div>
     </section>);
 }
