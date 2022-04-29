@@ -1,11 +1,13 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/sections/Alert";
 
 const Register = () => {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const [user, setUser] = useState({
-    nombre: '',
+    name: '',
     email: '',
     password: '',
     repeatedPassword: ''
@@ -16,7 +18,7 @@ const Register = () => {
     error: false
   });
 
-  const { nombre, email, password, repeatedPassword } = user;
+  const { name, email, password, repeatedPassword } = user;
 
   const handleChange = (e) => {
     setUser({
@@ -27,7 +29,7 @@ const Register = () => {
 
   const handleSubtmit = async (e) => {
     e.preventDefault();
-    if ([nombre, email, password, repeatedPassword].includes('')) {
+    if ([name, email, password, repeatedPassword].includes('')) {
       setAlert({
         message: 'Todos los campos son obligatorios',
         error: true
@@ -43,10 +45,32 @@ const Register = () => {
         error: true
       });
     } else {
-      setAlert({
-        message: '',
-        error: false
-      });
+      try {
+        const method = 'POST';
+        const resource = '/api/users';
+        const url = BACKEND_URL + resource
+        const options = {
+          method,
+          url,
+          data: user
+        };
+        const { data } = await axios(options);
+        setUser({
+          name: '',
+          email: '',
+          password: '',
+          repeatedPassword: ''
+        });
+        setAlert({
+          message: data.message,
+          error: false
+        });
+      } catch (error) {
+        setAlert({
+          message: error.response.data.message,
+          error: true
+        });
+      }
     }
   };
 
@@ -62,10 +86,10 @@ const Register = () => {
         >
           <input
             type="text"
-            id="nombre"
+            id="name"
             placeholder="Nombre"
             className="w-full border rounded-md p-2"
-            value={nombre}
+            value={name}
             onChange={handleChange}
           />
           {/* required /> */}
@@ -84,6 +108,7 @@ const Register = () => {
             placeholder="Password"
             className="w-full border rounded-md p-2"
             value={password}
+            // minLength="6"
             onChange={handleChange}
           />
           {/* required /> */}
@@ -93,6 +118,7 @@ const Register = () => {
             placeholder="Repetir password"
             className="w-full border rounded-md p-2"
             value={repeatedPassword}
+            // minLength="6"
             onChange={handleChange}
           />
           {/* required /> */}
@@ -116,7 +142,7 @@ const Register = () => {
           </Link>
         </nav>
         {
-          alert.error && <Alert alert={alert} />
+          alert.message && <Alert alert={alert} />
         }
       </div>
     </section>
