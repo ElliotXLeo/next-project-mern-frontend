@@ -23,7 +23,7 @@ const RecoverPassword = () => {
       try {
         const method = 'POST';
         const resource = '/api/users/recover-password';
-        const url = BACKEND_URL + resource
+        const url = BACKEND_URL + resource;
         const options = {
           method,
           url,

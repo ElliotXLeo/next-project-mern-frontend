@@ -11,7 +11,7 @@ const Confirm = () => {
 
   const method = 'GET';
   const resource = `/api/users/confirm/${id}`;
-  const url = BACKEND_URL + resource
+  const url = BACKEND_URL + resource;
 
   const [alert, setAlert] = useState({
     message: '',
@@ -28,11 +28,11 @@ const Confirm = () => {
           url
         };
         const { data } = await axios(options);
-        setConfirmedAccount(true);
         setAlert({
           message: data.message,
           error: false
         });
+        setConfirmedAccount(true);
       } catch (error) {
         setAlert({
           message: error.response.data.message,

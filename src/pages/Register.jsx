@@ -48,7 +48,7 @@ const Register = () => {
       try {
         const method = 'POST';
         const resource = '/api/users';
-        const url = BACKEND_URL + resource
+        const url = BACKEND_URL + resource;
         const options = {
           method,
           url,
