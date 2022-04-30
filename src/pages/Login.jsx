@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/sections/Alert";
 import axiosInstance from "../config/axiosInstance";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+  const useAuthContext = useAuth();
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -46,6 +48,7 @@ const Login = () => {
         };
         const { data } = await axiosInstance(options);
         localStorage.setItem('token', data.token);
+        useAuthContext.setAuth(data);
         setUser({
           email: '',
           password: ''
