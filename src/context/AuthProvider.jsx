@@ -1,16 +1,14 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../config/axiosInstance";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-  const [auth, setAuth] = useState({
-    _id: '',
-    name: '',
-    email: '',
-    token: ''
-  });
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [auth, setAuth] = useState({});
 
   useEffect(() => {
     const userAuthenticate = async () => {
@@ -32,16 +30,21 @@ export const AuthProvider = ({ children }) => {
             ...data,
             token
           });
+          navigate('/projects');
         } catch (error) {
+          setAuth({});
           console.log(error);
         }
       }
+      setLoading(false);
     };
     userAuthenticate();
   }, [])
   return (
     <AuthContext.Provider
       value={{
+        loading,
+        auth,
         setAuth
       }}
     >

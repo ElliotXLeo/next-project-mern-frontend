@@ -5,7 +5,7 @@ import axiosInstance from "../config/axiosInstance";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const useAuthContext = useAuth();
+  const { setAuth } = useAuth();
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -48,7 +48,7 @@ const Login = () => {
         };
         const { data } = await axiosInstance(options);
         localStorage.setItem('token', data.token);
-        useAuthContext.setAuth(data);
+        setAuth(data);
         setUser({
           email: '',
           password: ''
