@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <nav className="flex flex-col gap-4 py-10 px-5 md:w-80">
+    <nav className="flex flex-col gap-4 p-10 md:w-80">
       <p className="text-xl font-bold">Hola: Elliot</p>
       <Link
         to="/create-project"

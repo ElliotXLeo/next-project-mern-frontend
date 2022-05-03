@@ -25,9 +25,9 @@ const ProtectedRoute = () => {
     return (
       <>
         <Header />
-        <section className="">
+        <section className="md:flex md:min-h-screen">
           <Sidebar />
-          <main className="flex flex-col justify-center min-h-screen">
+          <main className="flex-1 p-10">
             <Outlet />
           </main>
         </section>
