@@ -25,7 +25,7 @@ const ProtectedRoute = () => {
     return (
       <>
         <Header />
-        <section className="next-project">
+        <section className="">
           <Sidebar />
           <main className="flex flex-col justify-center min-h-screen">
             <Outlet />
