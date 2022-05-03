@@ -1,4 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
+import Header from "../components/sections/Header";
+import Sidebar from "../components/sections/Sidebar";
 import useAuth from "../hooks/useAuth";
 
 const ProtectedRoute = () => {
@@ -21,9 +23,15 @@ const ProtectedRoute = () => {
     );
   } else if (auth._id) {
     return (
-      <main className="flex flex-col justify-center min-h-screen">
-        <Outlet />
-      </main>
+      <>
+        <Header />
+        <section className="next-project">
+          <Sidebar />
+          <main className="flex flex-col justify-center min-h-screen">
+            <Outlet />
+          </main>
+        </section>
+      </>
     );
   } else {
     return (
