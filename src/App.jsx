@@ -4,6 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 import { AuthProvider } from './context/AuthProvider';
+import { ProjectsProvider } from './context/ProjectsProvider';
 import AuthLayout from './layouts/AuthLayout';
 import ProtectedRoute from './layouts/ProtectedRoute';
 import Confirm from './pages/Confirm';
@@ -18,20 +19,22 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <Routes>
-          <Route path='/' element={<AuthLayout />}>
-            <Route index element={<Login />} />
-            <Route path='register' element={<Register />} />
-            <Route path='recover-password' element={<RecoverPassword />} />
-            <Route path='recover-password/:token' element={<NewPassword />} />
-            <Route path='confirm/:id' element={<Confirm />} />
-          </Route>
-          <Route path='/projects' element={<ProtectedRoute />}>
-            <Route index element={<Projects />} />
-            <Route path='create-project' element={<CreateProject />} />
-          </Route>
-          <Route path="*" element={<h1 className="text-8xl font-semibold text-yellow-300 text-center">404</h1>} />
-        </Routes>
+        <ProjectsProvider>
+          <Routes>
+            <Route path='/' element={<AuthLayout />}>
+              <Route index element={<Login />} />
+              <Route path='register' element={<Register />} />
+              <Route path='recover-password' element={<RecoverPassword />} />
+              <Route path='recover-password/:token' element={<NewPassword />} />
+              <Route path='confirm/:id' element={<Confirm />} />
+            </Route>
+            <Route path='/projects' element={<ProtectedRoute />}>
+              <Route index element={<Projects />} />
+              <Route path='create-project' element={<CreateProject />} />
+            </Route>
+            <Route path="*" element={<h1 className="text-8xl font-semibold text-yellow-300 text-center">404</h1>} />
+          </Routes>
+        </ProjectsProvider>
       </AuthProvider>
     </Router>
   );
