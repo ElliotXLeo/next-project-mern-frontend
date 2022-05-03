@@ -1,7 +1,10 @@
+import ProjectsForm from "../components/projects/ProjectsForm";
+
 const CreateProject = () => {
   return (
-    <section>
-      <h2 className="text-4xl font-black">CreateProject</h2>
+    <section className="flex flex-col gap-4">
+      <h2 className="text-4xl font-black">Crear proyecto</h2>
+      <ProjectsForm />
     </section>
   );
 }
