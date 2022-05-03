@@ -5,7 +5,7 @@ const Sidebar = () => {
   const { auth } = useAuth();
 
   return (
-    <nav className="flex flex-col gap-4 p-10 md:w-80">
+    <nav className="flex flex-col gap-4 md:w-80">
       <p className="text-xl font-bold">Hola: {auth.name}</p>
       <Link
         to="create-project"

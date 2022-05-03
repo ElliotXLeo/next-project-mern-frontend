@@ -25,11 +25,13 @@ const ProtectedRoute = () => {
     return (
       <>
         <Header />
-        <section className="md:flex md:min-h-screen">
-          <Sidebar />
-          <main className="flex-1 p-10">
-            <Outlet />
-          </main>
+        <section className="py-8">
+          <div className="flex flex-col md:flex-row gap-8 container mx-auto">
+            <Sidebar />
+            <main className="flex-1">
+              <Outlet />
+            </main>
+          </div>
         </section>
       </>
     );

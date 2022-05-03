@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="py-4 bg-white border-b">
-      <div className="flex justify-between container mx-auto">
+      <div className="flex items-center justify-between container mx-auto">
         <h2 className="text-2xl text-sky-600 font-black">NextProject</h2>
         <input type="search" placeholder="Buscar proyectos" className="p-2 border rounded-lg hidden md:flex md:w-96" />
         <div className="flex items-center gap-4">
