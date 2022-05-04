@@ -4,21 +4,14 @@ import Alert from "../sections/Alert";
 
 const ProjectsForm = () => {
 
-  const { alert, showAlert } = useProjects();
+  const { alert, showAlert, createProject } = useProjects();
 
   const [project, setProject] = useState({
     name: '',
     description: '',
     deadline: '',
-    customer: '',
-    // owner: '',
-    // developers: ''
+    customer: ''
   });
-
-  // const [alert, setAlert] = useState({
-  //   message: '',
-  //   error: false
-  // });
 
   const { name, description, deadline, customer } = project;
 
@@ -35,6 +28,14 @@ const ProjectsForm = () => {
       showAlert({
         message: 'Todos los campos son obligatorios',
         error: true
+      });
+    } else {
+      await createProject(project);
+      setProject({
+        name: '',
+        description: '',
+        deadline: '',
+        customer: ''
       });
     }
   };
