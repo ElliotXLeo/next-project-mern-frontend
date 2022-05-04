@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Alert from "../components/sections/Alert";
 import axiosInstance from "../config/axiosInstance";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { setAuth } = useAuth();
   const [user, setUser] = useState({
     email: '',
@@ -47,6 +48,7 @@ const Login = () => {
           data: user
         };
         const { data } = await axiosInstance(options);
+        console.log(data);
         localStorage.setItem('token', data.token);
         setAuth(data);
         setUser({
@@ -54,9 +56,10 @@ const Login = () => {
           password: ''
         });
         setAlert({
-          message: `Bienvenido ${data.nombre}`,
+          message: `Bienvenido ${data.name}`,
           error: false
         });
+        navigate('/projects');
       } catch (error) {
         setAlert({
           message: error.response.data.message,

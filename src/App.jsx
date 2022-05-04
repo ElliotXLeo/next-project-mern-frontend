@@ -11,6 +11,7 @@ import Confirm from './pages/Confirm';
 import CreateProject from './pages/CreateProject';
 import Login from './pages/Login';
 import NewPassword from './pages/NewPassword';
+import Project from './pages/Project';
 import Projects from './pages/Projects';
 import RecoverPassword from './pages/RecoverPassword';
 import Register from './pages/Register';
@@ -31,6 +32,7 @@ function App() {
             <Route path='/projects' element={<ProtectedRoute />}>
               <Route index element={<Projects />} />
               <Route path='create-project' element={<CreateProject />} />
+              <Route path=':id' element={<Project />} />
             </Route>
             <Route path="*" element={<h1 className="text-8xl font-semibold text-yellow-300 text-center">404</h1>} />
           </Routes>
