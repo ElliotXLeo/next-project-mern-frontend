@@ -9,7 +9,9 @@ export const ProjectsProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const [projects, setProjects] = useState([]);
+  const [project, setProject] = useState({});
   const [alert, setAlert] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const showAlert = (alert) => {
     setAlert(alert);
@@ -35,7 +37,6 @@ export const ProjectsProvider = ({ children }) => {
           url: resource
         };
         const { data } = await axiosInstance(options);
-        console.log(data);
         showAlert({
           message: 'Proyecto creado',
           error: false
@@ -49,7 +50,32 @@ export const ProjectsProvider = ({ children }) => {
         console.log(error);
       }
     }
-  }
+  };
+
+  const readProject = async (id) => {
+    setLoading(true);
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'GET';
+        const resource = `/projects/${id}`;
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        setProject(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   useEffect(() => {
     const readProjects = async () => {
@@ -84,9 +110,12 @@ export const ProjectsProvider = ({ children }) => {
     <ProjectsContext.Provider
       value={{
         projects,
+        project,
         alert,
+        loading,
         showAlert,
-        createProject
+        createProject,
+        readProject
       }}
     >
       {children}

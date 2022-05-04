@@ -48,7 +48,6 @@ const Login = () => {
           data: user
         };
         const { data } = await axiosInstance(options);
-        console.log(data);
         localStorage.setItem('token', data.token);
         setAuth(data);
         setUser({
