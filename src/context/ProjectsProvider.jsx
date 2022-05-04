@@ -8,10 +8,10 @@ export const ProjectsProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
   const [alert, setAlert] = useState({});
-  const [loading, setLoading] = useState(false);
 
   const showAlert = (alert) => {
     setAlert(alert);
@@ -109,10 +109,10 @@ export const ProjectsProvider = ({ children }) => {
   return (
     <ProjectsContext.Provider
       value={{
+        loading,
         projects,
         project,
         alert,
-        loading,
         showAlert,
         createProject,
         readProject

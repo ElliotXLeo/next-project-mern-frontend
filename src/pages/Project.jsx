@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../components/sections/Loading";
 import useProjects from "../hooks/useProjects";
 
@@ -20,9 +20,12 @@ const Project = () => {
         loading ?
           <Loading />
           :
-          <section className="flex flex-col gap-4">
+          <section className="flex items-center justify-between">
             <h2 className="text-4xl font-black">{name}</h2>
             <p className="text-2xl font-black">{description}</p>
+            <Link to={`/projects/update/${id}`} className="transition-all hover:sepia">
+              ✏
+            </Link>
           </section>
       }
     </>

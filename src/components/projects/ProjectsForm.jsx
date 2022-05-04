@@ -1,23 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import useProjects from "../../hooks/useProjects";
 import Alert from "../sections/Alert";
 
 const ProjectsForm = () => {
+  const params = useParams();
+  const { id } = params;
+  console.log(id);
 
-  const { alert, showAlert, createProject } = useProjects();
+  const { alert, project, showAlert, createProject } = useProjects();
 
-  const [project, setProject] = useState({
+  const [projectForm, setProjectForm] = useState({
     name: '',
     description: '',
     deadline: '',
     customer: ''
   });
 
-  const { name, description, deadline, customer } = project;
+  const { name, description, deadline, customer } = projectForm;
 
   const handleChange = (e) => {
-    setProject({
-      ...project,
+    setProjectForm({
+      ...projectForm,
       [e.target.id]: e.target.value
     });
   };
@@ -30,8 +34,8 @@ const ProjectsForm = () => {
         error: true
       });
     } else {
-      await createProject(project);
-      setProject({
+      await createProject(projectForm);
+      setProjectForm({
         name: '',
         description: '',
         deadline: '',
@@ -39,6 +43,15 @@ const ProjectsForm = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      setProjectForm({
+        ...project,
+        deadline: project.deadline?.split('T')[0]
+      });
+    }
+  }, [id])
 
   return (
     <>
@@ -78,7 +91,7 @@ const ProjectsForm = () => {
           required />
         <input
           type="submit"
-          value="Crear"
+          value={`${id ? 'Actualizar' : 'Crear'}`}
           className="bg-sky-700 text-white font-bold rounded-md p-2 cursor-pointer transition-colors hover:bg-sky-800" />
       </form>
       {

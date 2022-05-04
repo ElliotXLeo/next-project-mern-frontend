@@ -7,7 +7,7 @@ const Projects = () => {
   
   return (
     <section className="flex flex-col gap-4">
-      <h2 className="text-4xl font-black">Projects</h2>
+      <h2 className="text-4xl font-black text-center">Projects</h2>
       <div className="bg-white shadow rounded-lg p-4">
         {
           projects.length ?
