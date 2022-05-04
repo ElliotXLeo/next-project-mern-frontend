@@ -21,6 +21,15 @@ export const ProjectsProvider = ({ children }) => {
     }, 5000);
   };
 
+  const submitProjectsForm = async (project) => {
+    if (project._id === undefined) {
+      await createProject(project);
+    } else {
+      console.log('Editar');
+      await updateProject(project);
+    }
+  }
+
   const createProject = async (project) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -77,6 +86,37 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const updateProject = async (project) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'PUT';
+        const resource = `/projects/${project._id}`;
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          data: project,
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        const updatedProjects = projects.map((project) => {
+          return project._id === data._id ? data : project;
+        });
+        setProjects(updatedProjects);
+        showAlert({
+          message: 'Proyecto actualizado',
+          error: false
+        });
+        navigate('/projects');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   useEffect(() => {
     const readProjects = async () => {
       const token = localStorage.getItem('token');
@@ -114,6 +154,7 @@ export const ProjectsProvider = ({ children }) => {
         project,
         alert,
         showAlert,
+        submitProjectsForm,
         createProject,
         readProject
       }}

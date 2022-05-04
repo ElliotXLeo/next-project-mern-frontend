@@ -8,7 +8,7 @@ const ProjectsForm = () => {
   const { id } = params;
   console.log(id);
 
-  const { alert, project, showAlert, createProject } = useProjects();
+  const { alert, project, showAlert, submitProjectsForm } = useProjects();
 
   const [projectForm, setProjectForm] = useState({
     name: '',
@@ -34,13 +34,13 @@ const ProjectsForm = () => {
         error: true
       });
     } else {
-      await createProject(projectForm);
-      setProjectForm({
-        name: '',
-        description: '',
-        deadline: '',
-        customer: ''
-      });
+      await submitProjectsForm(projectForm);
+      // setProjectForm({
+      //   name: '',
+      //   description: '',
+      //   deadline: '',
+      //   customer: ''
+      // });
     }
   };
 
@@ -91,7 +91,7 @@ const ProjectsForm = () => {
           required />
         <input
           type="submit"
-          value={`${id ? 'Actualizar' : 'Crear'}`}
+          value={`${id === undefined ? 'Crear' : 'Actualizar'}`}
           className="bg-sky-700 text-white font-bold rounded-md p-2 cursor-pointer transition-colors hover:bg-sky-800" />
       </form>
       {
