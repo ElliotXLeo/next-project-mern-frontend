@@ -25,7 +25,6 @@ export const ProjectsProvider = ({ children }) => {
     if (project._id === undefined) {
       await createProject(project);
     } else {
-      console.log('Editar');
       await updateProject(project);
     }
   }

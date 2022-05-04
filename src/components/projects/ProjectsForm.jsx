@@ -6,7 +6,6 @@ import Alert from "../sections/Alert";
 const ProjectsForm = () => {
   const params = useParams();
   const { id } = params;
-  console.log(id);
 
   const { alert, project, showAlert, submitProjectsForm } = useProjects();
 
