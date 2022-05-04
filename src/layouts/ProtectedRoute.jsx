@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/sections/Header";
+import Loading from "../components/sections/Loading";
 import Sidebar from "../components/sections/Sidebar";
 import useAuth from "../hooks/useAuth";
 
@@ -8,18 +9,7 @@ const ProtectedRoute = () => {
 
   if (loading) {
     return (
-      <div className="loading">
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-        <div className="loading__wave"></div>
-      </div>
+      <Loading />
     );
   } else if (auth._id) {
     return (
