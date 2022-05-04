@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <div className="loading">
+    <section className="loading">
       <div className="loading__wave"></div>
       <div className="loading__wave"></div>
       <div className="loading__wave"></div>
@@ -11,7 +11,7 @@ const Loading = () => {
       <div className="loading__wave"></div>
       <div className="loading__wave"></div>
       <div className="loading__wave"></div>
-    </div>
+    </section>
   );
 }
 

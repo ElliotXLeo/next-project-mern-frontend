@@ -27,11 +27,16 @@
       align-items: center;
       gap: 1rem;
       min-height: 100vh;
-      background: #000;
+      background-color: #000;
       transition: all 0.5s;
     }
 
-    .loading--fixed-top {
+    main .loading {
+      background-color: transparent;
+      min-height: 75vh;
+    }
+
+    .loading--fixed {
       position: fixed;
       top: 0;
       left: 0;
@@ -96,7 +101,7 @@
 </head>
 
 <body class="body bg-gray-100">
-  <section class="loading loading--fixed-top" id="loading">
+  <section class="loading loading--fixed" id="loading">
     <div class="loading__wave"></div>
     <div class="loading__wave"></div>
     <div class="loading__wave"></div>
