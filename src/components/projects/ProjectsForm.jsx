@@ -1,7 +1,10 @@
 import { useState } from "react";
+import useProjects from "../../hooks/useProjects";
 import Alert from "../sections/Alert";
 
 const ProjectsForm = () => {
+
+  const { alert, showAlert } = useProjects();
 
   const [project, setProject] = useState({
     name: '',
@@ -12,10 +15,10 @@ const ProjectsForm = () => {
     // developers: ''
   });
 
-  const [alert, setAlert] = useState({
-    message: '',
-    error: false
-  });
+  // const [alert, setAlert] = useState({
+  //   message: '',
+  //   error: false
+  // });
 
   const { name, description, deadline, customer } = project;
 
@@ -29,7 +32,7 @@ const ProjectsForm = () => {
   const handleSubtmit = async (e) => {
     e.preventDefault();
     if ([name.trim(), description.trim(), deadline.trim(), customer.trim()].includes('')) {
-      setAlert({
+      showAlert({
         message: 'Todos los campos son obligatorios',
         error: true
       });
