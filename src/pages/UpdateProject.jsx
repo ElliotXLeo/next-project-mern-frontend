@@ -8,7 +8,7 @@ const UpdateProject = () => {
   const params = useParams();
   const { id } = params;
 
-  const { loading, project, readProject } = useProjects();
+  const { loading, readProject } = useProjects();
 
   useEffect(() => {
     readProject(id);

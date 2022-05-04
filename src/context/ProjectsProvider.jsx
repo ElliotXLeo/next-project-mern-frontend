@@ -117,6 +117,38 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const deleteProject = async (id) => {
+    setLoading(true);
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'DELETE';
+        const resource = `/projects/${id}`;
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        const updatedProjects = projects.filter((project) => {
+          return project._id !== id;
+        });
+        setProjects(updatedProjects);
+        showAlert({
+          message: data.message,
+          error: true
+        });
+        setLoading(false);
+        navigate('/projects');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   useEffect(() => {
     const readProjects = async () => {
       const token = localStorage.getItem('token');
@@ -155,8 +187,8 @@ export const ProjectsProvider = ({ children }) => {
         alert,
         showAlert,
         submitProjectsForm,
-        createProject,
-        readProject
+        readProject,
+        deleteProject
       }}
     >
       {children}

@@ -7,8 +7,14 @@ const Project = () => {
   const params = useParams();
   const { id } = params;
 
-  const { loading, readProject, project } = useProjects();
-  const { name, description } = project;
+  const { loading, project, readProject, deleteProject } = useProjects();
+  const { name } = project;
+
+  const handleClick = async () => {
+    if (confirm('¿Desea eliminar este proyecto?')) {
+      await deleteProject(id);
+    }
+  }
 
   useEffect(() => {
     readProject(id);
@@ -22,10 +28,17 @@ const Project = () => {
           :
           <section className="flex items-center justify-between">
             <h2 className="text-4xl font-black">{name}</h2>
-            <p className="text-2xl font-black">{description}</p>
-            <Link to={`/projects/update/${id}`} className="transition-all hover:sepia">
-              ✏
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link to={`/projects/update/${id}`} className="transition-all hover:sepia">
+                ✏
+              </Link>
+              <button
+                className="transition-all hover:sepia"
+                onClick={handleClick}
+              >
+                🗑
+              </button>
+            </div>
           </section>
       }
     </>
