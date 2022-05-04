@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../config/axiosInstance";
+import useAuth from "../hooks/useAuth";
 
 export const ProjectsContext = createContext();
 
@@ -12,6 +13,7 @@ export const ProjectsProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
   const [alert, setAlert] = useState({});
+  const { auth } = useAuth();
 
   const showAlert = (alert) => {
     setAlert(alert);
@@ -175,7 +177,7 @@ export const ProjectsProvider = ({ children }) => {
       }
     };
     readProjects();
-  }, []);
+  }, [auth]);
 
   return (
     <ProjectsContext.Provider
