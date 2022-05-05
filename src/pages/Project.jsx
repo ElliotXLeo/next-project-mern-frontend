@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import FormModal from "../components/sections/FormModal";
 import Loading from "../components/sections/Loading";
+import TasksTask from "../components/tasks/TasksTask";
 import useProjects from "../hooks/useProjects";
 
 const Project = () => {
@@ -19,6 +20,7 @@ const Project = () => {
 
   useEffect(() => {
     readProject(id);
+    console.log(project);
   }, []);
 
   return (
@@ -42,16 +44,30 @@ const Project = () => {
                 </button>
               </div>
             </header>
-            <div>
+            <section className="flex flex-col gap-4">
               <button
                 onClick={handleFormModalTask}
                 className="bg-sky-400 rounded-md text-white font-bold p-2 cursor-pointer transition-colors hover:bg-sky-500 w-full"
               >
                 ➕ Nueva tarea
               </button>
-
+              <div className="bg-white shadow rounded-lg py-4">
+                {
+                  project.tasks?.length ?
+                    project.tasks?.map((element) => {
+                      return (
+                        <TasksTask
+                          key={element._id}
+                          task={element}
+                        />
+                      );
+                    })
+                    :
+                    <p className="text-center">No hay tareas</p>
+                }
+              </div>
               <FormModal />
-            </div>
+            </section>
           </section>
       }
     </>
