@@ -1,16 +1,46 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProjects from '../../hooks/useProjects'
+import Alert from './Alert';
 
 
 const FormModal = () => {
 
-  const { FormModalTask, handleFormModalTask } = useProjects();
+  const PRIORITY = ['Baja', 'Media', 'Alta'];
+
+  const { alert, showAlert, FormModalTask, submitTasksForm, handleFormModalTask } = useProjects();
+
+  const [taskForm, setTaskForm] = useState({
+    name: '',
+    description: '',
+    deadline: '',
+    priority: ''
+  });
+  const { name, description, deadline, priority } = taskForm;
+
+  const handleChange = (e) => {
+    setTaskForm({
+      ...taskForm,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleSubtmit = async (e) => {
+    e.preventDefault();
+    if ([name.trim(), description.trim(), deadline.trim(), priority.trim()].includes('')) {
+      showAlert({
+        message: 'Todos los campos son obligatorios',
+        error: true
+      });
+    } else {
+      submitTasksForm(taskForm);
+    }
+  };
 
   return (
     <Transition.Root show={FormModalTask} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleFormModalTask}>
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="flex items-center justify-center min-h-screen p-4 px-4 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -57,11 +87,69 @@ const FormModal = () => {
 
 
               <div className="sm:flex sm:items-start">
-                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                  <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                    Título
+                <div className="flex flex-col gap-4 mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                  <Dialog.Title as="h2" className="text-lg leading-6 font-bold text-gray-900">
+                    Crear tarea
                   </Dialog.Title>
-                  <p>Contenido</p>
+                  <form
+                    onSubmit={handleSubtmit}
+                    className="flex flex-col gap-4 bg-white border rounded-lg w-4/5 max-w-sm mx-auto p-4"
+                  >
+                    <input
+                      type="text"
+                      placeholder="Nombre"
+                      id="name"
+                      className="w-full border rounded-md p-2"
+                      value={name}
+                      onChange={handleChange}
+                      required />
+                    <textarea
+                      placeholder="Descripción"
+                      id="description"
+                      className="w-full border rounded-md p-2"
+                      value={description}
+                      onChange={handleChange}
+                      required />
+                    <input
+                      type="date"
+                      id="deadline"
+                      className="w-full border rounded-md p-2"
+                      value={deadline}
+                      onChange={handleChange}
+                      required />
+                    <select
+                      type="text"
+                      placeholder="Prioridad"
+                      id="priority"
+                      className="w-full border p-2"
+                      value={priority}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option
+                        value=""
+                      >
+                        -- Seleccionar --
+                      </option>
+                      {PRIORITY.map((element) => {
+                        return (
+                          <option
+                            key={element}
+                            value={element}
+                          >
+                            {element}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <input
+                      type="submit"
+                      value="Crear"
+                      className="bg-sky-700 rounded-md text-white font-bold p-2 cursor-pointer transition-colors hover:bg-sky-800" />
+                  </form>
+                  {
+                    alert.message && <Alert alert={alert} />
+                  }
                 </div>
               </div>
             </div>

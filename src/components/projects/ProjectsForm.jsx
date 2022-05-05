@@ -7,7 +7,7 @@ const ProjectsForm = () => {
   const params = useParams();
   const { id } = params;
 
-  const { alert, project, showAlert, submitProjectsForm } = useProjects();
+  const { project, alert, showAlert, submitProjectsForm } = useProjects();
 
   const [projectForm, setProjectForm] = useState({
     name: '',
@@ -34,12 +34,6 @@ const ProjectsForm = () => {
       });
     } else {
       await submitProjectsForm(projectForm);
-      // setProjectForm({
-      //   name: '',
-      //   description: '',
-      //   deadline: '',
-      //   customer: ''
-      // });
     }
   };
 

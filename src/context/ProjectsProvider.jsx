@@ -151,6 +151,10 @@ export const ProjectsProvider = ({ children }) => {
     }
   }
 
+  const submitTasksForm = async (task) => {
+    console.log(task);
+  }
+
   const handleFormModalTask = () => {
     setFormModalTask(!FormModalTask);
   }
@@ -196,6 +200,7 @@ export const ProjectsProvider = ({ children }) => {
         readProject,
         deleteProject,
         FormModalTask,
+        submitTasksForm,
         handleFormModalTask
       }}
     >
