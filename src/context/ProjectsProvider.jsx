@@ -9,11 +9,12 @@ export const ProjectsProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
+  const { auth } = useAuth();
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
   const [alert, setAlert] = useState({});
-  const { auth } = useAuth();
+  const [FormModalTask, setFormModalTask] = useState(false);
 
   const showAlert = (alert) => {
     setAlert(alert);
@@ -150,6 +151,10 @@ export const ProjectsProvider = ({ children }) => {
     }
   }
 
+  const handleFormModalTask = () => {
+    setFormModalTask(!FormModalTask);
+  }
+
   useEffect(() => {
     const readProjects = async () => {
       const token = localStorage.getItem('token');
@@ -190,6 +195,8 @@ export const ProjectsProvider = ({ children }) => {
         submitProjectsForm,
         readProject,
         deleteProject,
+        FormModalTask,
+        handleFormModalTask
       }}
     >
       {children}
