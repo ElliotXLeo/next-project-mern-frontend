@@ -2,11 +2,14 @@ import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProjects from '../../hooks/useProjects'
 import Alert from './Alert';
+import { useParams } from 'react-router-dom';
 
 
 const FormModal = () => {
 
   const PRIORITY = ['Baja', 'Media', 'Alta'];
+
+  const params = useParams();
 
   const { alert, showAlert, FormModalTask, submitTasksForm, handleFormModalTask } = useProjects();
 
@@ -33,7 +36,7 @@ const FormModal = () => {
         error: true
       });
     } else {
-      submitTasksForm(taskForm);
+      submitTasksForm({...taskForm, project: params.id});
     }
   };
 

@@ -143,6 +143,10 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const handleFormModalTask = () => {
+    setFormModalTask(!FormModalTask);
+  }
+
   const submitProjectsForm = async (project) => {
     if (project._id === undefined) {
       await createProject(project);
@@ -151,12 +155,40 @@ export const ProjectsProvider = ({ children }) => {
     }
   }
 
-  const submitTasksForm = async (task) => {
-    console.log(task);
-  }
+  const createTask = async (task) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'POST';
+        const resource = '/tasks';
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          data: task,
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        console.log(data);
+        showAlert({
+          message: 'Tarea creado',
+          error: false
+        });
+        // setProjects([
+        //   ...projects,
+        //   data
+        // ]);
+        // navigate('/projects');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
-  const handleFormModalTask = () => {
-    setFormModalTask(!FormModalTask);
+  const submitTasksForm = async (task) => {
+    await createTask(task);
   }
 
   useEffect(() => {
