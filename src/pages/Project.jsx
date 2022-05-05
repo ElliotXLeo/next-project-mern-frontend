@@ -26,17 +26,26 @@ const Project = () => {
         loading ?
           <Loading />
           :
-          <section className="flex items-center justify-between">
-            <h2 className="text-4xl font-black">{name}</h2>
-            <div className="flex items-center gap-4">
-              <Link to={`/projects/update/${id}`} className="transition-all hover:sepia">
-                ✏
-              </Link>
+          <section className="flex flex-col gap-8">
+            <header className="flex items-center justify-between">
+              <h2 className="text-4xl font-black">{name}</h2>
+              <div className="flex items-center gap-4">
+                <Link to={`/projects/update/${id}`} className="transition-all hover:sepia">
+                  ✏
+                </Link>
+                <button
+                  className="transition-all hover:sepia"
+                  onClick={handleClick}
+                >
+                  🗑
+                </button>
+              </div>
+            </header>
+            <div>
               <button
-                className="transition-all hover:sepia"
-                onClick={handleClick}
+                className="bg-sky-400 rounded-md text-white font-bold p-2 cursor-pointer transition-colors hover:bg-sky-500 w-full"
               >
-                🗑
+                ➕ Nueva tarea
               </button>
             </div>
           </section>

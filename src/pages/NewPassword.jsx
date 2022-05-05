@@ -133,7 +133,7 @@ const NewPassword = () => {
             <input
               type="submit"
               value="Reestablecer"
-              className="bg-sky-700 text-white font-bold rounded-md p-2 cursor-pointer transition-colors hover:bg-sky-800" />
+              className="bg-sky-700 rounded-md text-white font-bold p-2 cursor-pointer transition-colors hover:bg-sky-800" />
           </form>
         }
         {

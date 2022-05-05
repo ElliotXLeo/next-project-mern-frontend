@@ -11,7 +11,7 @@ const Sidebar = () => {
         to="create-project"
         className="bg-sky-600 rounded-md text-white text-sm text-center font-bold uppercase p-2"
       >
-        Nuevo Proyecto
+        Nuevo proyecto
       </Link>
     </nav>
   );
