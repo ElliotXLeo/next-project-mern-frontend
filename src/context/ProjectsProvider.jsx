@@ -23,14 +23,6 @@ export const ProjectsProvider = ({ children }) => {
     }, 5000);
   };
 
-  const submitProjectsForm = async (project) => {
-    if (project._id === undefined) {
-      await createProject(project);
-    } else {
-      await updateProject(project);
-    }
-  }
-
   const createProject = async (project) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -150,6 +142,14 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const submitProjectsForm = async (project) => {
+    if (project._id === undefined) {
+      await createProject(project);
+    } else {
+      await updateProject(project);
+    }
+  }
+
   useEffect(() => {
     const readProjects = async () => {
       const token = localStorage.getItem('token');
@@ -189,7 +189,7 @@ export const ProjectsProvider = ({ children }) => {
         showAlert,
         submitProjectsForm,
         readProject,
-        deleteProject
+        deleteProject,
       }}
     >
       {children}

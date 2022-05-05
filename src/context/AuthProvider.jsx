@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
             ...data,
             token
           });
-          // navigate('/projects');
+          navigate('/projects');
         } catch (error) {
           setAuth({});
           console.log(error);
