@@ -11,7 +11,7 @@ const Project = () => {
   const params = useParams();
   const { id } = params;
 
-  const { loading, project, alert, readProject, deleteProject, handleFormModalTask } = useProjects();
+  const { alert, loading, project, readProject, deleteProject, handleFormModalTask } = useProjects();
   const { name } = project;
 
   const handleClick = async () => {

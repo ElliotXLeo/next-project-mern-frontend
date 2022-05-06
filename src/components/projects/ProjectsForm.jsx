@@ -7,7 +7,7 @@ const ProjectsForm = () => {
   const params = useParams();
   const { id } = params;
 
-  const { project, alert, showAlert, submitProjectsForm } = useProjects();
+  const { alert, showAlert, project, submitProjectsForm } = useProjects();
 
   const [projectForm, setProjectForm] = useState({
     name: '',

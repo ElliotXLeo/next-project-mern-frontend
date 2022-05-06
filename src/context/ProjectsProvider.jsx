@@ -314,10 +314,10 @@ export const ProjectsProvider = ({ children }) => {
     <ProjectsContext.Provider
       value={{
         loading,
-        projects,
-        project,
         alert,
         showAlert,
+        projects,
+        project,
         submitProjectsForm,
         readProject,
         deleteProject,

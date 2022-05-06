@@ -3,8 +3,8 @@ import Alert from "../components/sections/Alert";
 import useProjects from "../hooks/useProjects";
 
 const Projects = () => {
-  const { projects, alert } = useProjects();
-  
+  const { alert, projects } = useProjects();
+
   return (
     <section className="flex flex-col gap-4">
       <h2 className="text-4xl font-black text-center">Projects</h2>
