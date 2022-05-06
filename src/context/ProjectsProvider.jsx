@@ -177,7 +177,7 @@ export const ProjectsProvider = ({ children }) => {
         };
         const { data } = await axiosInstance(options);
         showAlert({
-          message: 'Tarea creado',
+          message: 'Tarea creada',
           error: false
         });
         setProject({
@@ -207,13 +207,9 @@ export const ProjectsProvider = ({ children }) => {
           url: resource
         };
         const { data } = await axiosInstance(options);
-        console.log(data);
-        console.log(project);
         const updatedProjectTasks = project.tasks.map((element) => {
           return element._id === data._id ? data : element;
         });
-        console.log(project);
-        console.log(updatedProjectTasks);
         setProject({
           ...project,
           tasks: updatedProjectTasks
@@ -223,6 +219,40 @@ export const ProjectsProvider = ({ children }) => {
           error: false
         });
         handleFormModalTask();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const deleteTask = async (task) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'DELETE';
+        const resource = `/tasks/${task._id}`;
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        const updatedProjectTasks = project.tasks.filter((element) => {
+          return element._id !== task._id;
+        });
+        setProject({
+          ...project,
+          tasks: updatedProjectTasks
+        });
+        showAlert({
+          message: data.message,
+          error: true
+        });
+        setTaskDeleteModal(false);
+        setTask({});
       } catch (error) {
         console.log(error);
       }
@@ -292,6 +322,7 @@ export const ProjectsProvider = ({ children }) => {
         handleFormModalTask,
         task,
         handleSetTask,
+        deleteTask,
         taskDeleteModal,
         handleTaskDeleteModal
       }}

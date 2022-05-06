@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import Alert from "../components/sections/Alert";
 import FormModal from "../components/sections/FormModal";
 import Loading from "../components/sections/Loading";
 import TasksDeleteModal from "../components/tasks/TasksDeleteModal";
@@ -10,7 +11,7 @@ const Project = () => {
   const params = useParams();
   const { id } = params;
 
-  const { loading, project, readProject, deleteProject, handleFormModalTask } = useProjects();
+  const { loading, project, alert, readProject, deleteProject, handleFormModalTask } = useProjects();
   const { name } = project;
 
   const handleClick = async () => {
@@ -52,6 +53,7 @@ const Project = () => {
                 ➕ Nueva tarea
               </button>
               <div className="bg-white shadow rounded-lg p-4">
+                <h3 className="text-xl font-bold text-center">Tareas del proyecto</h3>
                 {
                   project.tasks?.length ?
                     project.tasks?.map((element) => {
@@ -66,6 +68,9 @@ const Project = () => {
                     <p className="text-center">No hay tareas</p>
                 }
               </div>
+              {
+                alert.message && <Alert alert={alert} />
+              }
               <FormModal />
               <TasksDeleteModal />
             </section>
