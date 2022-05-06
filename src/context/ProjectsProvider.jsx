@@ -175,7 +175,6 @@ export const ProjectsProvider = ({ children }) => {
           url: resource
         };
         const { data } = await axiosInstance(options);
-        console.log(data);
         showAlert({
           message: 'Tarea creado',
           error: false
@@ -183,6 +182,44 @@ export const ProjectsProvider = ({ children }) => {
         setProject({
           ...project,
           tasks: [...project.tasks, data]
+        });
+        handleFormModalTask();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const updateTask = async (task) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'PUT';
+        const resource = `/tasks/${task._id}`;
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          data: task,
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        console.log(data);
+        console.log(project);
+        const updatedProjectTasks = project.tasks.map((element) => {
+          return element._id === data._id ? data : element;
+        });
+        console.log(project);
+        console.log(updatedProjectTasks);
+        setProject({
+          ...project,
+          tasks: updatedProjectTasks
+        });
+        showAlert({
+          message: 'Tarea actualizada',
+          error: false
         });
         handleFormModalTask();
       } catch (error) {
@@ -200,8 +237,7 @@ export const ProjectsProvider = ({ children }) => {
     if (task._id === undefined) {
       await createTask(task);
     } else {
-      console.log('Editando');
-      // await updateTask(task);
+      await updateTask(task);
     }
   }
 

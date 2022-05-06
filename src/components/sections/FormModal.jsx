@@ -60,7 +60,7 @@ const FormModal = () => {
         priority: ''
       });
     }
-  }, [task])
+  }, [task]);
 
   return (
     <Transition.Root show={FormModalTask} as={Fragment}>
