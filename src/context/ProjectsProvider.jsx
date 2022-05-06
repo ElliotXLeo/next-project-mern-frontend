@@ -11,13 +11,14 @@ export const ProjectsProvider = ({ children }) => {
 
   const { auth } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({});
+  const [alertTimeId, setAlertTimeId] = useState(0);
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
-  const [alert, setAlert] = useState({});
   const [FormModalTask, setFormModalTask] = useState(false);
   const [task, setTask] = useState({});
-  const [alertTimeId, setAlertTimeId] = useState(0);
   const [taskDeleteModal, setTaskDeleteModal] = useState(false);
+  const [developer, setDeveloper] = useState({});
 
   const showAlert = (alert) => {
     clearTimeout(alertTimeId);
@@ -278,10 +279,38 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const submitDeveloperForm = async (email) => {
-    console.log(email);
+    if (email) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const method = 'GET';
+          const resource = `/projects/developer/${email}`;
+          const options = {
+            method,
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            url: resource
+          };
+          const { data } = await axiosInstance(options);
+          setDeveloper(data);
+          showAlert({
+            message: 'Desarrollador encontrado',
+            error: false
+          });
+        } catch (error) {
+          setAlert({
+            message: error.response.data.message,
+            error: true
+          });
+        }
+      }
+    }
   };
 
   useEffect(() => {
+    setLoading(true);
     const readProjects = async () => {
       const token = localStorage.getItem('token');
       if (token) {
@@ -304,6 +333,8 @@ export const ProjectsProvider = ({ children }) => {
           });
         } catch (error) {
           console.log(error);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -329,7 +360,8 @@ export const ProjectsProvider = ({ children }) => {
         deleteTask,
         taskDeleteModal,
         handleTaskDeleteModal,
-        submitDeveloperForm
+        developer,
+        submitDeveloperForm,
       }}
     >
       {children}
