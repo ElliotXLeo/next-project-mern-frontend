@@ -51,7 +51,7 @@ const Project = () => {
               >
                 ➕ Nueva tarea
               </button>
-              <div className="bg-white shadow rounded-lg py-4">
+              <div className="bg-white shadow rounded-lg p-4">
                 {
                   project.tasks?.length ?
                     project.tasks?.map((element) => {

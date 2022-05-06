@@ -176,11 +176,11 @@ export const ProjectsProvider = ({ children }) => {
           message: 'Tarea creado',
           error: false
         });
-        // setProjects([
-        //   ...projects,
-        //   data
-        // ]);
-        // navigate('/projects');
+        setProject({
+          ...project,
+          tasks: [...project.tasks, data]
+        });
+        handleFormModalTask();
       } catch (error) {
         console.log(error);
       }

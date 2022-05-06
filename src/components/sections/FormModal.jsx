@@ -36,7 +36,13 @@ const FormModal = () => {
         error: true
       });
     } else {
-      submitTasksForm({...taskForm, project: params.id});
+      await submitTasksForm({ ...taskForm, project: params.id });
+      setTaskForm({
+        name: '',
+        description: '',
+        deadline: '',
+        priority: ''
+      });
     }
   };
 
