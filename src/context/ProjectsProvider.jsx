@@ -277,6 +277,10 @@ export const ProjectsProvider = ({ children }) => {
     setTaskDeleteModal(!taskDeleteModal);
   };
 
+  const submitDeveloperForm = async (email) => {
+    console.log(email);
+  };
+
   useEffect(() => {
     const readProjects = async () => {
       const token = localStorage.getItem('token');
@@ -324,7 +328,8 @@ export const ProjectsProvider = ({ children }) => {
         handleSetTask,
         deleteTask,
         taskDeleteModal,
-        handleTaskDeleteModal
+        handleTaskDeleteModal,
+        submitDeveloperForm
       }}
     >
       {children}
