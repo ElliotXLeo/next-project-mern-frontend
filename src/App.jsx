@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthProvider';
 import { ProjectsProvider } from './context/ProjectsProvider';
 import AuthLayout from './layouts/AuthLayout';
 import ProtectedRoute from './layouts/ProtectedRoute';
+import AddDeveloper from './pages/AddDeveloper';
 import Confirm from './pages/Confirm';
 import CreateProject from './pages/CreateProject';
 import Login from './pages/Login';
@@ -35,6 +36,7 @@ function App() {
               <Route path='create-project' element={<CreateProject />} />
               <Route path=':id' element={<Project />} />
               <Route path='update/:id' element={<UpdateProject />} />
+              <Route path='add-developer/:id' element={<AddDeveloper />} />
             </Route>
             <Route path="*" element={<h1 className="text-8xl font-semibold text-yellow-300 text-center">404</h1>} />
           </Routes>

@@ -52,8 +52,8 @@ const Project = () => {
               >
                 ➕ Nueva tarea
               </button>
+              <h3 className="text-xl font-bold text-center">Tareas</h3>
               <div className="bg-white shadow rounded-lg p-4">
-                <h3 className="text-xl font-bold text-center">Tareas del proyecto</h3>
                 {
                   project.tasks?.length ?
                     project.tasks?.map((element) => {
@@ -67,6 +67,15 @@ const Project = () => {
                     :
                     <p className="text-center">No hay tareas</p>
                 }
+              </div>
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-bold text-center">Desarrolladores</h3>
+                <Link
+                  to={`/projects/add-developer/${project._id}`}
+                  className="text-gray-400 uppercase font-bold transition-colors hover:text-black"
+                >
+                  Agregar
+                </Link>
               </div>
               {
                 alert.message && <Alert alert={alert} />
