@@ -17,6 +17,7 @@ export const ProjectsProvider = ({ children }) => {
   const [FormModalTask, setFormModalTask] = useState(false);
   const [task, setTask] = useState({});
   const [alertTimeId, setAlertTimeId] = useState(0);
+  const [taskDeleteModal, setTaskDeleteModal] = useState(false);
 
   const showAlert = (alert) => {
     clearTimeout(alertTimeId);
@@ -149,7 +150,7 @@ export const ProjectsProvider = ({ children }) => {
   const handleFormModalTask = () => {
     setFormModalTask(!FormModalTask);
     setTask({});
-  }
+  };
 
   const submitProjectsForm = async (project) => {
     if (project._id === undefined) {
@@ -157,7 +158,7 @@ export const ProjectsProvider = ({ children }) => {
     } else {
       await updateProject(project);
     }
-  }
+  };
 
   const createTask = async (task) => {
     const token = localStorage.getItem('token');
@@ -231,7 +232,7 @@ export const ProjectsProvider = ({ children }) => {
   const handleSetTask = (task) => {
     setTask(task);
     setFormModalTask(true);
-  }
+  };
 
   const submitTasksForm = async (task) => {
     if (task._id === undefined) {
@@ -239,7 +240,12 @@ export const ProjectsProvider = ({ children }) => {
     } else {
       await updateTask(task);
     }
-  }
+  };
+
+  const handleTaskDeleteModal = (task) => {
+    setTask(task);
+    setTaskDeleteModal(!taskDeleteModal);
+  };
 
   useEffect(() => {
     const readProjects = async () => {
@@ -285,7 +291,9 @@ export const ProjectsProvider = ({ children }) => {
         submitTasksForm,
         handleFormModalTask,
         task,
-        handleSetTask
+        handleSetTask,
+        taskDeleteModal,
+        handleTaskDeleteModal
       }}
     >
       {children}

@@ -5,7 +5,7 @@ const TasksTask = ({ task }) => {
 
   const { _id, name, description, state, deadline, priority } = task;
 
-  const { handleSetTask } = useProjects();
+  const { handleSetTask, handleTaskDeleteModal } = useProjects();
 
 
   return (
@@ -34,7 +34,10 @@ const TasksTask = ({ task }) => {
             </button>
           )
         }
-        <button className="bg-red-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-red-700">
+        <button
+          onClick={() => handleTaskDeleteModal(task)}
+          className="bg-red-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-red-700"
+        >
           Eliminar
         </button>
       </div>

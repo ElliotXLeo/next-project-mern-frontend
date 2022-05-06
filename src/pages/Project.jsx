@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import FormModal from "../components/sections/FormModal";
 import Loading from "../components/sections/Loading";
+import TasksDeleteModal from "../components/tasks/TasksDeleteModal";
 import TasksTask from "../components/tasks/TasksTask";
 import useProjects from "../hooks/useProjects";
 
@@ -66,6 +67,7 @@ const Project = () => {
                 }
               </div>
               <FormModal />
+              <TasksDeleteModal />
             </section>
           </section>
       }
