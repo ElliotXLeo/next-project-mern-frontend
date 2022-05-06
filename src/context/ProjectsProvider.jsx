@@ -16,13 +16,15 @@ export const ProjectsProvider = ({ children }) => {
   const [alert, setAlert] = useState({});
   const [FormModalTask, setFormModalTask] = useState(false);
   const [task, setTask] = useState({});
+  const [alertTimeId, setAlertTimeId] = useState(0);
 
   const showAlert = (alert) => {
+    clearTimeout(alertTimeId);
     setAlert(alert);
 
-    setTimeout(() => {
+    setAlertTimeId(setTimeout(() => {
       setAlert({})
-    }, 5000);
+    }, 5000));
   };
 
   const createProject = async (project) => {
