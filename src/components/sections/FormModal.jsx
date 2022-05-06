@@ -11,7 +11,7 @@ const FormModal = () => {
 
   const params = useParams();
 
-  const { alert, showAlert, FormModalTask, submitTasksForm, handleFormModalTask } = useProjects();
+  const { alert, showAlert, FormModalTask, submitTasksForm, task, handleFormModalTask } = useProjects();
 
   const [taskForm, setTaskForm] = useState({
     name: '',
@@ -45,6 +45,22 @@ const FormModal = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (task._id) {
+      setTaskForm({
+        ...task,
+        deadline: task.deadline?.split('T')[0]
+      });
+    } else {
+      setTaskForm({
+        name: '',
+        description: '',
+        deadline: '',
+        priority: ''
+      });
+    }
+  }, [task])
 
   return (
     <Transition.Root show={FormModalTask} as={Fragment}>
@@ -98,7 +114,7 @@ const FormModal = () => {
               <div className="sm:flex sm:items-start">
                 <div className="flex flex-col gap-4 mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <Dialog.Title as="h2" className="text-lg leading-6 font-bold text-gray-900">
-                    Crear tarea
+                    {task._id === undefined ? 'Crear' : 'Actualizar'} tarea
                   </Dialog.Title>
                   <form
                     onSubmit={handleSubtmit}
@@ -153,7 +169,7 @@ const FormModal = () => {
                     </select>
                     <input
                       type="submit"
-                      value="Crear"
+                      value={task._id === undefined ? 'Crear' : 'Actualizar'}
                       className="bg-sky-700 rounded-md text-white font-bold p-2 cursor-pointer transition-colors hover:bg-sky-800" />
                   </form>
                   {

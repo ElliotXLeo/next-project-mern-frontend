@@ -20,7 +20,6 @@ const Project = () => {
 
   useEffect(() => {
     readProject(id);
-    console.log(project);
   }, []);
 
   return (

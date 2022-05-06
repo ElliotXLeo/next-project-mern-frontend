@@ -15,6 +15,7 @@ export const ProjectsProvider = ({ children }) => {
   const [project, setProject] = useState({});
   const [alert, setAlert] = useState({});
   const [FormModalTask, setFormModalTask] = useState(false);
+  const [task, setTask] = useState({});
 
   const showAlert = (alert) => {
     setAlert(alert);
@@ -145,6 +146,7 @@ export const ProjectsProvider = ({ children }) => {
 
   const handleFormModalTask = () => {
     setFormModalTask(!FormModalTask);
+    setTask({});
   }
 
   const submitProjectsForm = async (project) => {
@@ -187,8 +189,18 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const handleSetTask = (task) => {
+    setTask(task);
+    setFormModalTask(true);
+  }
+
   const submitTasksForm = async (task) => {
-    await createTask(task);
+    if (task._id === undefined) {
+      await createTask(task);
+    } else {
+      console.log('Editando');
+      // await updateTask(task);
+    }
   }
 
   useEffect(() => {
@@ -233,7 +245,9 @@ export const ProjectsProvider = ({ children }) => {
         deleteProject,
         FormModalTask,
         submitTasksForm,
-        handleFormModalTask
+        handleFormModalTask,
+        task,
+        handleSetTask
       }}
     >
       {children}

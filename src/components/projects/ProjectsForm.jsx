@@ -84,7 +84,7 @@ const ProjectsForm = () => {
           required />
         <input
           type="submit"
-          value={`${id === undefined ? 'Crear' : 'Actualizar'}`}
+          value={id === undefined ? 'Crear' : 'Actualizar'}
           className="bg-sky-700 rounded-md text-white font-bold p-2 cursor-pointer transition-colors hover:bg-sky-800" />
       </form>
       {
