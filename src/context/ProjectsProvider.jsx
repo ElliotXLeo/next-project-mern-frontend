@@ -280,6 +280,7 @@ export const ProjectsProvider = ({ children }) => {
 
   const submitDeveloperForm = async (email) => {
     if (email) {
+      setLoading(true);
       const token = localStorage.getItem('token');
       if (token) {
         try {
@@ -304,10 +305,49 @@ export const ProjectsProvider = ({ children }) => {
             message: error.response.data.message,
             error: true
           });
+        } finally {
+          setLoading(false);
         }
       }
     }
   };
+
+  const addDeveloper = async (email) => {
+    if (email) {
+      setLoading(true);
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const method = 'POST';
+          const resource = `/projects/developer/${project._id}`;
+          const options = {
+            method,
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            data: email,
+            url: resource
+          };
+          const { data } = await axiosInstance(options);
+          console.log(data);
+          showAlert({
+            message: `${data.name} ha sido agregad@`,
+            error: false
+          });
+          setDeveloper({});
+        } catch (error) {
+          setAlert({
+            message: error.response.data.message,
+            error: true
+          });
+        } finally {
+          setLoading(false);
+        }
+      }
+    }
+  };
+
 
   useEffect(() => {
     setLoading(true);
@@ -362,6 +402,7 @@ export const ProjectsProvider = ({ children }) => {
         handleTaskDeleteModal,
         developer,
         submitDeveloperForm,
+        addDeveloper
       }}
     >
       {children}
