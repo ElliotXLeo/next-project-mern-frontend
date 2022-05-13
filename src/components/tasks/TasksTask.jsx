@@ -1,4 +1,5 @@
 import { formatDate } from "../../helpers/formatDate";
+import useAdmin from "../../hooks/useAdmin";
 import useProjects from "../../hooks/useProjects";
 
 const TasksTask = ({ task }) => {
@@ -6,7 +7,7 @@ const TasksTask = ({ task }) => {
   const { _id, name, description, state, deadline, priority } = task;
 
   const { handleSetTask, handleTaskDeleteModal } = useProjects();
-
+  const admin = useAdmin();
 
   return (
     <div className="flex items-center justify-between border-b p-4">
@@ -17,12 +18,18 @@ const TasksTask = ({ task }) => {
         <h6 className="text-gray-600">{priority}</h6>
       </div>
       <div className="flex flex-col gap-2 md:flex-row">
-        <button
-          onClick={() => { handleSetTask(task) }}
-          className="bg-indigo-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-indigo-700"
-        >
-          Editar
-        </button>
+        {
+          admin
+          &&
+          (
+            <button
+              onClick={() => { handleSetTask(task) }}
+              className="bg-indigo-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-indigo-700"
+            >
+              Editar
+            </button>
+          )
+        }
         {
           state ? (
             <button className="bg-sky-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-sky-700">
@@ -34,12 +41,18 @@ const TasksTask = ({ task }) => {
             </button>
           )
         }
-        <button
-          onClick={() => handleTaskDeleteModal(task)}
-          className="bg-red-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-red-700"
-        >
-          Eliminar
-        </button>
+        {
+          admin
+          &&
+          (
+            <button
+              onClick={() => handleTaskDeleteModal(task)}
+              className="bg-red-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-red-700"
+            >
+              Eliminar
+            </button>
+          )
+        }
       </div>
     </div>
   );
