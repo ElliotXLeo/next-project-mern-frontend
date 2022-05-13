@@ -3,13 +3,13 @@ import { Dialog, Transition } from '@headlessui/react'
 import useProjects from '../../hooks/useProjects';
 
 
-const TasksDeleteModal = () => {
+const DevelopersDeleteModal = () => {
 
-  const { task, deleteTask, taskDeleteModal, handleTaskDeleteModal } = useProjects();
+  const { developer, deleteDeveloper, developerDeleteModal, handleDeveloperDeleteModal } = useProjects();
 
   return (
-    <Transition.Root show={taskDeleteModal} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleTaskDeleteModal}>
+    <Transition.Root show={developerDeleteModal} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleDeveloperDeleteModal}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -46,7 +46,7 @@ const TasksDeleteModal = () => {
                 <button
                   type="button"
                   className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={handleTaskDeleteModal}
+                  onClick={handleDeveloperDeleteModal}
                 >
                   <span className="sr-only">Cerrar</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -64,22 +64,22 @@ const TasksDeleteModal = () => {
                 </div>
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                    Eliminar tarea
+                    Eliminar Desarrollador
                   </Dialog.Title>
-                  <p className='text-sm text-gray-500 mt-2'>Si elimina la tarea no podrá recuperarla</p>
+                  <p className='text-sm text-gray-500 mt-2'>Si elimina al desarrollador no podrá acceder al proyecto</p>
                 </div>
               </div>
               <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  onClick={() => deleteTask(task)}
+                  onClick={() => deleteDeveloper(developer)}
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                 >
                   Eliminar
                 </button>
                 <button
                   type="button"
-                  onClick={handleTaskDeleteModal}
+                  onClick={handleDeveloperDeleteModal}
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
                 >
                   Cancelar
@@ -93,4 +93,4 @@ const TasksDeleteModal = () => {
   )
 }
 
-export default TasksDeleteModal;
+export default DevelopersDeleteModal;

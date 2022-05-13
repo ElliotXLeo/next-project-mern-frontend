@@ -19,6 +19,7 @@ export const ProjectsProvider = ({ children }) => {
   const [task, setTask] = useState({});
   const [taskDeleteModal, setTaskDeleteModal] = useState(false);
   const [developer, setDeveloper] = useState({});
+  const [developerDeleteModal, setDeveloperDeleteModal] = useState(false);
 
   const showAlert = (alert) => {
     clearTimeout(alertTimeId);
@@ -319,7 +320,7 @@ export const ProjectsProvider = ({ children }) => {
       if (token) {
         try {
           const method = 'POST';
-          const resource = `/projects/developer/${project._id}`;
+          const resource = `/projects/developers/${project._id}`;
           const options = {
             method,
             headers: {
@@ -348,6 +349,10 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const handleDeveloperDeleteModal = (developer) => {
+    setDeveloper(developer);
+    setDeveloperDeleteModal(!developerDeleteModal);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -402,7 +407,10 @@ export const ProjectsProvider = ({ children }) => {
         handleTaskDeleteModal,
         developer,
         submitDevelopersForm,
-        addDeveloper
+        addDeveloper,
+        deleteDeveloper,
+        developerDeleteModal,
+        handleDeveloperDeleteModal
       }}
     >
       {children}

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import DevelopersDeleteModal from "../components/developers/DevelopersDeleteModal";
 import DevelopersDeveloper from "../components/developers/DevelopersDeveloper";
 import Alert from "../components/sections/Alert";
 import FormModal from "../components/sections/FormModal";
@@ -14,8 +15,6 @@ const Project = () => {
 
   const { alert, loading, project, readProject, deleteProject, handleFormModalTask } = useProjects();
   const { name } = project;
-
-  console.log(project);
 
   const handleClick = async () => {
     if (confirm('¿Desea eliminar este proyecto?')) {
@@ -100,6 +99,7 @@ const Project = () => {
               }
               <FormModal />
               <TasksDeleteModal />
+              <DevelopersDeleteModal />
             </section>
           </section>
       }

@@ -1,5 +1,9 @@
+import useProjects from "../../hooks/useProjects";
+
 const DevelopersDeveloper = ({ developer }) => {
   const { name, email } = developer;
+
+  const { handleDeveloperDeleteModal } = useProjects();
   return (
     <div className="flex items-center justify-between border-b p-4">
       <div className="flex flex-col gap-1">
@@ -8,7 +12,7 @@ const DevelopersDeveloper = ({ developer }) => {
       </div>
       <div className="flex flex-col gap-2 md:flex-row">
         <button
-          // onClick={() => handleTaskDeleteModal(task)}
+          onClick={() => handleDeveloperDeleteModal(developer)}
           className="bg-red-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-red-700"
         >
           Eliminar
