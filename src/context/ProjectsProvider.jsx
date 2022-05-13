@@ -286,7 +286,7 @@ export const ProjectsProvider = ({ children }) => {
       if (token) {
         try {
           const method = 'GET';
-          const resource = `/projects/developer/${email}`;
+          const resource = `/projects/developers/${email}`;
           const options = {
             method,
             headers: {
@@ -331,7 +331,6 @@ export const ProjectsProvider = ({ children }) => {
             url: resource
           };
           const { data } = await axiosInstance(options);
-          console.log(data);
           showAlert({
             message: `${data.name} ha sido agregad@`,
             error: false
@@ -345,6 +344,41 @@ export const ProjectsProvider = ({ children }) => {
         } finally {
           setLoading(false);
         }
+      }
+    }
+  };
+
+  const deleteDeveloper = async (developer) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'DELETE';
+        const resource = `/projects/developers/${project._id}`;
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          data: { _id: developer._id },
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        const updatedProjectDeveloper = project.developers.filter((element) => {
+          return element._id !== developer._id;
+        });
+        setProject({
+          ...project,
+          developers: updatedProjectDeveloper
+        });
+        showAlert({
+          message: data.message,
+          error: true
+        });
+        setDeveloperDeleteModal(false);
+        setDeveloper({});
+      } catch (error) {
+        console.log(error);
       }
     }
   };
