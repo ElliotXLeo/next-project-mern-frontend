@@ -2,9 +2,9 @@ import { useState } from "react";
 import useProjects from "../../hooks/useProjects";
 import Alert from "../sections/Alert";
 
-const DeveloperForm = () => {
+const DevelopersForm = () => {
 
-  const { alert, showAlert, submitDeveloperForm } = useProjects();
+  const { alert, showAlert, submitDevelopersForm } = useProjects();
   const [email, setEmail] = useState('');
 
   const handleSubtmit = (e) => {
@@ -15,7 +15,7 @@ const DeveloperForm = () => {
         error: true
       });
     } else {
-      submitDeveloperForm(email);
+      submitDevelopersForm(email);
     }
   };
 
@@ -46,4 +46,4 @@ const DeveloperForm = () => {
   );
 }
 
-export default DeveloperForm;
+export default DevelopersForm;

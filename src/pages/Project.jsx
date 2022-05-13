@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import DeveloperDeveloper from "../components/developer/DeveloperDeveloper";
+import DevelopersDeveloper from "../components/developers/DevelopersDeveloper";
 import Alert from "../components/sections/Alert";
 import FormModal from "../components/sections/FormModal";
 import Loading from "../components/sections/Loading";
@@ -85,7 +85,7 @@ const Project = () => {
                   project.developers?.length ?
                     project.developers?.map((element) => {
                       return (
-                        <DeveloperDeveloper
+                        <DevelopersDeveloper
                           key={element._id}
                           developer={element}
                         />

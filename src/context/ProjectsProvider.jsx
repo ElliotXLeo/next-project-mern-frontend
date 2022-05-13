@@ -278,7 +278,7 @@ export const ProjectsProvider = ({ children }) => {
     setTaskDeleteModal(!taskDeleteModal);
   };
 
-  const submitDeveloperForm = async (email) => {
+  const submitDevelopersForm = async (email) => {
     if (email) {
       setLoading(true);
       const token = localStorage.getItem('token');
@@ -401,7 +401,7 @@ export const ProjectsProvider = ({ children }) => {
         taskDeleteModal,
         handleTaskDeleteModal,
         developer,
-        submitDeveloperForm,
+        submitDevelopersForm,
         addDeveloper
       }}
     >

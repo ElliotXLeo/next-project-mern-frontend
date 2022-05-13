@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import DeveloperForm from "../components/developer/DeveloperForm";
+import DevelopersForm from "../components/developers/DevelopersForm";
 import Loading from "../components/sections/Loading";
 import useProjects from "../hooks/useProjects";
 
@@ -23,7 +23,7 @@ const AddDeveloper = () => {
           <h2 className="text-4xl font-black">Agregar desarrollador al proyecto: {project.name}</h2>
         </header>
         <section className="flex flex-col gap-4">
-          <DeveloperForm />
+          <DevelopersForm />
           {
             developer?._id && (
               <div className="flex flex-col gap-4 bg-white border rounded-lg w-4/5 max-w-sm mx-auto p-4">
