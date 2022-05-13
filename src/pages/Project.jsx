@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import DeveloperDeveloper from "../components/developer/DeveloperDeveloper";
 import Alert from "../components/sections/Alert";
 import FormModal from "../components/sections/FormModal";
 import Loading from "../components/sections/Loading";
@@ -13,6 +14,8 @@ const Project = () => {
 
   const { alert, loading, project, readProject, deleteProject, handleFormModalTask } = useProjects();
   const { name } = project;
+
+  console.log(project);
 
   const handleClick = async () => {
     if (confirm('¿Desea eliminar este proyecto?')) {
@@ -76,6 +79,21 @@ const Project = () => {
                 >
                   Agregar
                 </Link>
+              </div>
+              <div className="bg-white shadow rounded-lg p-4">
+                {
+                  project.developers?.length ?
+                    project.developers?.map((element) => {
+                      return (
+                        <DeveloperDeveloper
+                          key={element._id}
+                          developer={element}
+                        />
+                      );
+                    })
+                    :
+                    <p className="text-center">No hay desarrolladores</p>
+                }
               </div>
               {
                 alert.message && <Alert alert={alert} />
