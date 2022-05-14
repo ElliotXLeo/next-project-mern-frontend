@@ -227,6 +227,38 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const updateTaskState = async (id) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const method = 'POST';
+        const resource = `/tasks/state/${id}`;
+        const options = {
+          method,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          url: resource
+        };
+        const { data } = await axiosInstance(options);
+        const updatedProjectTasks = project.tasks.map((element) => {
+          return element._id === data._id ? data : element;
+        });
+        setProject({
+          ...project,
+          tasks: updatedProjectTasks
+        });
+        showAlert({
+          message: 'Tarea actualizada',
+          error: false
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const deleteTask = async (task) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -436,6 +468,7 @@ export const ProjectsProvider = ({ children }) => {
         handleFormModalTask,
         task,
         handleSetTask,
+        updateTaskState,
         deleteTask,
         taskDeleteModal,
         handleTaskDeleteModal,

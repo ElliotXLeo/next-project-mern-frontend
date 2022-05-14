@@ -6,7 +6,7 @@ const TasksTask = ({ task }) => {
 
   const { _id, name, description, state, deadline, priority } = task;
 
-  const { handleSetTask, handleTaskDeleteModal } = useProjects();
+  const { handleSetTask, updateTaskState, handleTaskDeleteModal } = useProjects();
   const admin = useAdmin();
 
   return (
@@ -30,17 +30,12 @@ const TasksTask = ({ task }) => {
             </button>
           )
         }
-        {
-          state ? (
-            <button className="bg-sky-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-sky-700">
-              Completa
-            </button>
-          ) : (
-            <button className="bg-gray-600 rounded-md text-white text-sm font-bold uppercase p-2 transition-colors hover:bg-gray-700">
-              Incompleta
-            </button>
-          )
-        }
+        <button
+          className={`rounded-md text-white text-sm font-bold uppercase p-2 transition-colors ${state ? 'bg-sky-600 hover:bg-sky-700' : 'bg-gray-600 hover:bg-gray-700'}`}
+          onClick={() => updateTaskState(_id)}
+        >
+          {state ? 'Completa' : 'Incompleta'}
+        </button>
         {
           admin
           &&
