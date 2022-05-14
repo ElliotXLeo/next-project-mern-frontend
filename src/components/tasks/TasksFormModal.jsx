@@ -1,11 +1,11 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProjects from '../../hooks/useProjects'
-import Alert from './Alert';
+import Alert from '../sections/Alert';
 import { useParams } from 'react-router-dom';
 
 
-const FormModal = () => {
+const TasksFormModal = () => {
 
   const PRIORITY = ['Baja', 'Media', 'Alta'];
 
@@ -118,7 +118,7 @@ const FormModal = () => {
                   </Dialog.Title>
                   <form
                     onSubmit={handleSubtmit}
-                    className="flex flex-col gap-4 bg-white border rounded-lg w-4/5 max-w-sm mx-auto p-4"
+                    className="flex flex-col gap-4 bg-white border rounded-lg max-w-sm mx-auto p-4"
                   >
                     <input
                       type="text"
@@ -185,4 +185,4 @@ const FormModal = () => {
   )
 }
 
-export default FormModal
+export default TasksFormModal;

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import DevelopersDeleteModal from "../components/developers/DevelopersDeleteModal";
 import DevelopersDeveloper from "../components/developers/DevelopersDeveloper";
 import Alert from "../components/sections/Alert";
-import FormModal from "../components/sections/FormModal";
+import TasksFormModal from "../components/tasks/TasksFormModal";
 import Loading from "../components/sections/Loading";
 import TasksDeleteModal from "../components/tasks/TasksDeleteModal";
 import TasksTask from "../components/tasks/TasksTask";
@@ -118,7 +118,7 @@ const Project = () => {
           {
             alert.message && <Alert alert={alert} />
           }
-          <FormModal />
+          <TasksFormModal />
           <TasksDeleteModal />
           <DevelopersDeleteModal />
         </section>
