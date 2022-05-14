@@ -4,18 +4,25 @@ import useProjects from "../../hooks/useProjects";
 
 const TasksTask = ({ task }) => {
 
-  const { _id, name, description, state, deadline, priority } = task;
+  const { _id, name, description, state, deadline, priority, developer } = task;
 
   const { handleSetTask, updateTaskState, handleTaskDeleteModal } = useProjects();
   const admin = useAdmin();
 
   return (
     <div className="flex items-center justify-between border-b p-4">
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col items-start gap-1">
         <h3 className="text-xl">{name}</h3>
         <h4 className="text-gray-500">{description}</h4>
         <h5 className="text-gray-700">{formatDate(deadline)}</h5>
         <h6 className="text-gray-600">{priority}</h6>
+        {
+          state
+          &&
+          (
+            <h6 className="bg-green-600 rounded text-white text-xs font-bold uppercase p-1">Completada por: {developer.name}</h6>
+          )
+        }
       </div>
       <div className="flex flex-col gap-2 md:flex-row">
         {
