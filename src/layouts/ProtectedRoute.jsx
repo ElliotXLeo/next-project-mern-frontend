@@ -15,7 +15,7 @@ const ProtectedRoute = () => {
     return (
       <>
         <Header />
-        <section className="py-8">
+        <section className="p-4 md:py-8">
           <div className="flex flex-col md:flex-row gap-8 container mx-auto">
             <Sidebar />
             <main className="flex-1">
