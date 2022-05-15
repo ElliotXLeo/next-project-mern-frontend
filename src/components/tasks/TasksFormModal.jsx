@@ -11,7 +11,7 @@ const TasksFormModal = () => {
 
   const params = useParams();
 
-  const { alert, showAlert, FormModalTask, submitTasksForm, task, handleFormModalTask } = useProjects();
+  const { alert, showAlert, formModalTask, submitTasksForm, task, handleFormModalTask } = useProjects();
 
   const [taskForm, setTaskForm] = useState({
     name: '',
@@ -63,7 +63,7 @@ const TasksFormModal = () => {
   }, [task]);
 
   return (
-    <Transition.Root show={FormModalTask} as={Fragment}>
+    <Transition.Root show={formModalTask} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleFormModalTask}>
         <div className="flex items-center justify-center min-h-screen p-4 px-4 text-center sm:block sm:p-0">
           <Transition.Child

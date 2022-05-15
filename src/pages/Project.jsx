@@ -9,21 +9,16 @@ import TasksDeleteModal from "../components/tasks/TasksDeleteModal";
 import TasksTask from "../components/tasks/TasksTask";
 import useAdmin from "../hooks/useAdmin";
 import useProjects from "../hooks/useProjects";
+import ProjectsDeleteModal from "../components/projects/ProjectsDeleteModal";
 
 const Project = () => {
   const params = useParams();
   const { id } = params;
 
-  const { alert, loading, project, readProject, deleteProject, handleFormModalTask } = useProjects();
+  const { alert, loading, project, readProject, handleProjectDeleteModal, handleFormModalTask } = useProjects();
   const { name } = project;
 
   const admin = useAdmin();
-
-  const handleClick = async () => {
-    if (confirm('¿Desea eliminar este proyecto?')) {
-      await deleteProject(id);
-    }
-  }
 
   useEffect(() => {
     readProject(id);
@@ -46,7 +41,7 @@ const Project = () => {
                 </Link>
                 <button
                   className="transition-all hover:sepia"
-                  onClick={handleClick}
+                  onClick={handleProjectDeleteModal}
                 >
                   🗑
                 </button>
@@ -118,6 +113,7 @@ const Project = () => {
           {
             alert.message && <Alert alert={alert} />
           }
+          <ProjectsDeleteModal />
           <TasksFormModal />
           <TasksDeleteModal />
           <DevelopersDeleteModal />

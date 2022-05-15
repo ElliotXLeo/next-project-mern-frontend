@@ -15,7 +15,8 @@ export const ProjectsProvider = ({ children }) => {
   const [alertTimeId, setAlertTimeId] = useState(0);
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
-  const [FormModalTask, setFormModalTask] = useState(false);
+  const [projectDeleteModal, setProjectDeleteModal] = useState(false);
+  const [formModalTask, setFormModalTask] = useState(false);
   const [task, setTask] = useState({});
   const [taskDeleteModal, setTaskDeleteModal] = useState(false);
   const [developer, setDeveloper] = useState({});
@@ -142,6 +143,7 @@ export const ProjectsProvider = ({ children }) => {
           error: true
         });
         setLoading(false);
+        setProjectDeleteModal(false);
         navigate('/projects');
       } catch (error) {
         console.log(error);
@@ -149,17 +151,21 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
-  const handleFormModalTask = () => {
-    setFormModalTask(!FormModalTask);
-    setTask({});
+  const handleProjectDeleteModal = () => {
+    setProjectDeleteModal(!projectDeleteModal);
   };
-
+  
   const submitProjectsForm = async (project) => {
     if (project._id === undefined) {
       await createProject(project);
     } else {
       await updateProject(project);
     }
+  };
+
+  const handleFormModalTask = () => {
+    setFormModalTask(!formModalTask);
+    setTask({});
   };
 
   const createTask = async (task) => {
@@ -463,10 +469,12 @@ export const ProjectsProvider = ({ children }) => {
         submitProjectsForm,
         readProject,
         deleteProject,
-        FormModalTask,
-        submitTasksForm,
-        handleFormModalTask,
+        projectDeleteModal,
+        handleProjectDeleteModal,
         task,
+        formModalTask,
+        handleFormModalTask,
+        submitTasksForm,
         handleSetTask,
         updateTaskState,
         deleteTask,
