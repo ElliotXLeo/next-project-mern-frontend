@@ -1,16 +1,16 @@
 const Loading = () => {
   return (
-    <section className="loading">
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
-      <div className="loading__wave"></div>
+    <section className="loader">
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
+      <div className="loader__wave"></div>
     </section>
   );
 }
