@@ -22,7 +22,7 @@ const Project = () => {
 
   useEffect(() => {
     readProject(id);
-  }, []);
+  }, [id]);
 
   if (loading) {
     return <Loading />

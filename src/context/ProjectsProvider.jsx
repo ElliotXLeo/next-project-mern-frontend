@@ -21,6 +21,7 @@ export const ProjectsProvider = ({ children }) => {
   const [taskDeleteModal, setTaskDeleteModal] = useState(false);
   const [developer, setDeveloper] = useState({});
   const [developerDeleteModal, setDeveloperDeleteModal] = useState(false);
+  const [searcher, setSearcher] = useState(false);
 
   const showAlert = (alert) => {
     clearTimeout(alertTimeId);
@@ -154,7 +155,7 @@ export const ProjectsProvider = ({ children }) => {
   const handleProjectDeleteModal = () => {
     setProjectDeleteModal(!projectDeleteModal);
   };
-  
+
   const submitProjectsForm = async (project) => {
     if (project._id === undefined) {
       await createProject(project);
@@ -426,6 +427,10 @@ export const ProjectsProvider = ({ children }) => {
     setDeveloperDeleteModal(!developerDeleteModal);
   };
 
+  const handleSearcher = () => {
+    setSearcher(!searcher);
+  }
+
   useEffect(() => {
     setLoading(true);
     const readProjects = async () => {
@@ -485,7 +490,9 @@ export const ProjectsProvider = ({ children }) => {
         addDeveloper,
         deleteDeveloper,
         developerDeleteModal,
-        handleDeveloperDeleteModal
+        handleDeveloperDeleteModal,
+        searcher,
+        handleSearcher
       }}
     >
       {children}
