@@ -36,6 +36,7 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const createProject = async (project) => {
+    setLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -62,6 +63,8 @@ export const ProjectsProvider = ({ children }) => {
         navigate('/projects');
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -124,6 +127,7 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const updateProject = async (project) => {
+    setLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -150,6 +154,8 @@ export const ProjectsProvider = ({ children }) => {
         navigate('/projects');
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -265,6 +271,7 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const updateTaskState = async (id) => {
+    setLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -286,11 +293,14 @@ export const ProjectsProvider = ({ children }) => {
         socket.emit('updateTask', data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
 
   const deleteTask = async (task) => {
+    setLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -314,6 +324,8 @@ export const ProjectsProvider = ({ children }) => {
         socket.emit('deleteTask', task);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -324,11 +336,13 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const submitTasksForm = async (task) => {
+    setLoading(true);
     if (task._id === undefined) {
       await createTask(task);
     } else {
       await updateTask(task);
     }
+    setLoading(false);
   };
 
   const handleTaskDeleteModal = (task) => {
@@ -435,6 +449,7 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   const deleteDeveloper = async (developer) => {
+    setLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -465,6 +480,8 @@ export const ProjectsProvider = ({ children }) => {
         setDeveloper({});
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
   };

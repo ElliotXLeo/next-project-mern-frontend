@@ -15,7 +15,7 @@ Aplicación de Administrador de Proyectos que llevarán tu gestión al siguiente
   - git clone https://github.com/ElliotXLeo/next-project-mern-frontend.git
   - cd next-project-mern-frontend
   - npm install
-  - npm start
+  - npm run dev
     - Levanta un servidor con la aplicación
   - npm run build
     - Genera un paquete para el despliegue en producción
