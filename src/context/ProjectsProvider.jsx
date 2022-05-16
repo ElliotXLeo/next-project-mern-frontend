@@ -305,19 +305,13 @@ export const ProjectsProvider = ({ children }) => {
           url: resource
         };
         const { data } = await axiosInstance(options);
-        const updatedProjectTasks = project.tasks.filter((element) => {
-          return element._id !== task._id;
-        });
-        setProject({
-          ...project,
-          tasks: updatedProjectTasks
-        });
         showAlert({
           message: data.message,
           error: true
         });
         setTaskDeleteModal(false);
         setTask({});
+        socket.emit('deleteTask', task);
       } catch (error) {
         console.log(error);
       }
@@ -337,6 +331,11 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const handleTaskDeleteModal = (task) => {
+    setTask(task);
+    setTaskDeleteModal(!taskDeleteModal);
+  };
+
   const submitTasksProject = (data) => {
     if (data.project._id && project.tasks) {
       const updatedProjectTasks = project.tasks.map((element) => {
@@ -354,9 +353,16 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
-  const handleTaskDeleteModal = (task) => {
-    setTask(task);
-    setTaskDeleteModal(!taskDeleteModal);
+  const deleteTasksProject = (task) => {
+    if (task.project && project.tasks) {
+      const updatedProjectTasks = project.tasks.filter((element) => {
+        return element._id !== task._id;
+      });
+      setProject({
+        ...project,
+        tasks: updatedProjectTasks
+      });
+    }
   };
 
   const submitDevelopersForm = async (email) => {
@@ -492,10 +498,10 @@ export const ProjectsProvider = ({ children }) => {
         submitTasksForm,
         updateTaskState,
         deleteTask,
-        submitTasksProject,
-        // submitUpdateTaskState,
         taskDeleteModal,
         handleTaskDeleteModal,
+        submitTasksProject,
+        deleteTasksProject,
         developer,
         submitDevelopersForm,
         addDeveloper,

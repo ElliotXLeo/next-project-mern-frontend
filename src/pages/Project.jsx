@@ -18,7 +18,7 @@ const Project = () => {
   const params = useParams();
   const { id } = params;
 
-  const { alert, loading, project, readProject, handleProjectDeleteModal, handleFormModalTask, submitTasksProject } = useProjects();
+  const { alert, loading, project, readProject, handleProjectDeleteModal, handleFormModalTask, submitTasksProject, deleteTasksProject } = useProjects();
   const { name } = project;
 
   const admin = useAdmin();
@@ -39,6 +39,10 @@ const Project = () => {
 
     socket.on('updatedTask', (response) => {
       submitTasksProject(response);
+    });
+
+    socket.on('deletedTask', (response) => {
+      deleteTasksProject(response);
     });
   });
 
