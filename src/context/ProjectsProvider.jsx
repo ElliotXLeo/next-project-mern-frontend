@@ -2,6 +2,9 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../config/axiosInstance";
 import useAuth from "../hooks/useAuth";
+import serverIo from "socket.io-client";
+
+let socket;
 
 export const ProjectsContext = createContext();
 
@@ -168,6 +171,10 @@ export const ProjectsProvider = ({ children }) => {
     setFormModalTask(!formModalTask);
     setTask({});
   };
+
+  useEffect(() => {
+    socket = serverIo(import.meta.env.VITE_BACKEND_URL);
+  }, []);
 
   const createTask = async (task) => {
     const token = localStorage.getItem('token');

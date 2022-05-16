@@ -118,7 +118,7 @@ const TasksFormModal = () => {
                   </Dialog.Title>
                   <form
                     onSubmit={handleSubtmit}
-                    className="flex flex-col gap-4 bg-white border rounded-lg max-w-sm mx-auto p-4"
+                    className="flex flex-col gap-4 bg-white border rounded-lg p-4"
                   >
                     <input
                       type="text"

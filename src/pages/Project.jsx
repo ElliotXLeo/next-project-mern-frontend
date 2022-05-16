@@ -10,6 +10,9 @@ import TasksTask from "../components/tasks/TasksTask";
 import useAdmin from "../hooks/useAdmin";
 import useProjects from "../hooks/useProjects";
 import ProjectsDeleteModal from "../components/projects/ProjectsDeleteModal";
+import serverIo from "socket.io-client";
+
+let socket;
 
 const Project = () => {
   const params = useParams();
@@ -23,6 +26,11 @@ const Project = () => {
   useEffect(() => {
     readProject(id);
   }, [id]);
+
+  useEffect(() => {
+    socket = serverIo(import.meta.env.VITE_BACKEND_URL);
+    socket.emit('project', id);
+  }, []);
 
   if (loading) {
     return <Loading />
