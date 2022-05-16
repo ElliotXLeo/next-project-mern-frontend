@@ -220,18 +220,12 @@ export const ProjectsProvider = ({ children }) => {
           url: resource
         };
         const { data } = await axiosInstance(options);
-        const updatedProjectTasks = project.tasks.map((element) => {
-          return element._id === data._id ? data : element;
-        });
-        setProject({
-          ...project,
-          tasks: updatedProjectTasks
-        });
         showAlert({
           message: 'Tarea actualizada',
           error: false
         });
         handleFormModalTask();
+        socket.emit('updateTask', data);
       } catch (error) {
         console.log(error);
       }
@@ -317,11 +311,19 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
-  const submitCreateTask = (task) => {
-    if (project.tasks) {
+  const submitTasksProject = (data) => {
+    if (data.project._id && project.tasks) {
+      const updatedProjectTasks = project.tasks.map((element) => {
+        return element._id === data._id ? data : element;
+      });
       setProject({
         ...project,
-        tasks: [...project.tasks, task]
+        tasks: updatedProjectTasks
+      });
+    } else if (project.tasks) {
+      setProject({
+        ...project,
+        tasks: [...project.tasks, data]
       });
     }
   };
@@ -493,7 +495,7 @@ export const ProjectsProvider = ({ children }) => {
         formModalTask,
         handleFormModalTask,
         submitTasksForm,
-        submitCreateTask,
+        submitTasksProject,
         handleSetTask,
         updateTaskState,
         deleteTask,

@@ -18,7 +18,7 @@ const Project = () => {
   const params = useParams();
   const { id } = params;
 
-  const { alert, loading, project, readProject, handleProjectDeleteModal, handleFormModalTask, submitCreateTask } = useProjects();
+  const { alert, loading, project, readProject, handleProjectDeleteModal, handleFormModalTask, submitTasksProject } = useProjects();
   const { name } = project;
 
   const admin = useAdmin();
@@ -34,7 +34,11 @@ const Project = () => {
 
   useEffect(() => {
     socket.on('taskCreated', (response) => {
-      submitCreateTask(response);
+      submitTasksProject(response);
+    });
+
+    socket.on('updatedTask', (response) => {
+      submitTasksProject(response);
     });
   });
 
