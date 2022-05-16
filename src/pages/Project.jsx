@@ -18,7 +18,7 @@ const Project = () => {
   const params = useParams();
   const { id } = params;
 
-  const { alert, loading, project, readProject, handleProjectDeleteModal, handleFormModalTask } = useProjects();
+  const { alert, loading, project, readProject, handleProjectDeleteModal, handleFormModalTask, submitCreateTask } = useProjects();
   const { name } = project;
 
   const admin = useAdmin();
@@ -31,6 +31,12 @@ const Project = () => {
     socket = serverIo(import.meta.env.VITE_BACKEND_URL);
     socket.emit('project', id);
   }, []);
+
+  useEffect(() => {
+    socket.on('taskCreated', (response) => {
+      submitCreateTask(response);
+    });
+  });
 
   if (loading) {
     return <Loading />

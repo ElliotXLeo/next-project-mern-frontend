@@ -196,11 +196,8 @@ export const ProjectsProvider = ({ children }) => {
           message: 'Tarea creada',
           error: false
         });
-        setProject({
-          ...project,
-          tasks: [...project.tasks, data]
-        });
         handleFormModalTask();
+        socket.emit('createTask', data);
       } catch (error) {
         console.log(error);
       }
@@ -317,6 +314,15 @@ export const ProjectsProvider = ({ children }) => {
       await createTask(task);
     } else {
       await updateTask(task);
+    }
+  };
+
+  const submitCreateTask = (task) => {
+    if (project.tasks) {
+      setProject({
+        ...project,
+        tasks: [...project.tasks, task]
+      });
     }
   };
 
@@ -487,6 +493,7 @@ export const ProjectsProvider = ({ children }) => {
         formModalTask,
         handleFormModalTask,
         submitTasksForm,
+        submitCreateTask,
         handleSetTask,
         updateTaskState,
         deleteTask,
