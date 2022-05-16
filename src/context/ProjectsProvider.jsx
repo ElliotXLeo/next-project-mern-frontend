@@ -19,8 +19,8 @@ export const ProjectsProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
   const [projectDeleteModal, setProjectDeleteModal] = useState(false);
-  const [formModalTask, setFormModalTask] = useState(false);
   const [task, setTask] = useState({});
+  const [formModalTask, setFormModalTask] = useState(false);
   const [taskDeleteModal, setTaskDeleteModal] = useState(false);
   const [developer, setDeveloper] = useState({});
   const [developerDeleteModal, setDeveloperDeleteModal] = useState(false);
@@ -65,6 +65,38 @@ export const ProjectsProvider = ({ children }) => {
       }
     }
   };
+
+  useEffect(() => {
+    setLoading(true);
+    const readProjects = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const method = 'GET';
+          const resource = '/projects';
+          const options = {
+            method,
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            url: resource
+          };
+          const { data } = await axiosInstance(options);
+          setProjects(data);
+          showAlert({
+            message: 'Proyectos listados',
+            error: false
+          });
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    readProjects();
+  }, [auth]);
 
   const readProject = async (id) => {
     setLoading(true);
@@ -247,17 +279,11 @@ export const ProjectsProvider = ({ children }) => {
           url: resource
         };
         const { data } = await axiosInstance(options);
-        const updatedProjectTasks = project.tasks.map((element) => {
-          return element._id === data._id ? data : element;
-        });
-        setProject({
-          ...project,
-          tasks: updatedProjectTasks
-        });
         showAlert({
           message: 'Tarea actualizada',
           error: false
         });
+        socket.emit('updateTask', data);
       } catch (error) {
         console.log(error);
       }
@@ -446,38 +472,6 @@ export const ProjectsProvider = ({ children }) => {
     setSearcher(!searcher);
   }
 
-  useEffect(() => {
-    setLoading(true);
-    const readProjects = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const method = 'GET';
-          const resource = '/projects';
-          const options = {
-            method,
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json;charset=utf-8'
-            },
-            url: resource
-          };
-          const { data } = await axiosInstance(options);
-          setProjects(data);
-          showAlert({
-            message: 'Proyectos listados',
-            error: false
-          });
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    readProjects();
-  }, [auth]);
-
   return (
     <ProjectsContext.Provider
       value={{
@@ -494,11 +488,12 @@ export const ProjectsProvider = ({ children }) => {
         task,
         formModalTask,
         handleFormModalTask,
-        submitTasksForm,
-        submitTasksProject,
         handleSetTask,
+        submitTasksForm,
         updateTaskState,
         deleteTask,
+        submitTasksProject,
+        // submitUpdateTaskState,
         taskDeleteModal,
         handleTaskDeleteModal,
         developer,
