@@ -4,6 +4,11 @@
 
 Aplicación de Administrador de Proyectos que llevarán tu gestión al siguiente nivel. En él puedes administrar los proyectos de tus sueños y sus actividades de inicio a fin.
 
+## Cuentas
+- elliot@elliot.com && elliot
+- chocolate@chocolate.com && chocolate
+- chocolate@chocolate.com && dokypatita
+
 ## 💻 Instalación 💻
 - Ubicarse en la carpeta que contendrá el proyecto
 - Abrir terminal de comandos
