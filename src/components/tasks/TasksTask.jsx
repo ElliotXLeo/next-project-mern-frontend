@@ -1,4 +1,4 @@
-import { formatDate } from "../../helpers/formatDate";
+import { formatDate } from "../../utils/formatDate";
 import useAdmin from "../../hooks/useAdmin";
 import useProjects from "../../hooks/useProjects";
 
