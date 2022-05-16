@@ -12,7 +12,7 @@ const RecoverPassword = () => {
 
   const handleSubtmit = async (e) => {
     e.preventDefault();
-    if (email === '') {
+    if (email.trim() === '') {
       setAlert({
         message: 'Email obligatorio',
         error: true
@@ -58,7 +58,7 @@ const RecoverPassword = () => {
             className="w-full border rounded-md p-2"
             value={email}
             onChange={e => setEmail(e.target.value)}
-          // required 
+            required
           />
           <input
             type="submit"

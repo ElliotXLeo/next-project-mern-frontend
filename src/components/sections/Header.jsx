@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 
 const Header = () => {
   const { logOutAuth } = useAuth();
-  const { searcher, handleSearcher, logOutProjects } = useProjects();
+  const { handleSearcher, logOutProjects } = useProjects();
 
   const handleLogOut = () => {
     logOutAuth();
@@ -17,9 +17,7 @@ const Header = () => {
     <header className="p-4 md:py-4 bg-white border-b">
       <div className="flex items-center justify-between container mx-auto">
         <Link to="/projects" className="text-2xl text-sky-600 font-black">NextProject</Link>
-        {/* <input type="search" placeholder="Buscar proyectos" className="p-2 border rounded-lg hidden md:flex md:w-96" /> */}
         <div className="flex items-center gap-2">
-          {/* <Link to="/projects" className="font-bold uppercase">Proyectos</Link> */}
           <button
             className="font-bold uppercase"
             onClick={handleSearcher}

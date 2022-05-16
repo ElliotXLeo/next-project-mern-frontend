@@ -42,7 +42,6 @@ const Searcher = () => {
           <Combobox
             as="div"
             className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
-          // onChange={(element) => (window.location = `/projects/${element._id}`)}
           >
             <div className="relative">
               <Combobox.Input

@@ -27,7 +27,7 @@ const Register = () => {
 
   const handleSubtmit = async (e) => {
     e.preventDefault();
-    if ([name, email, password, repeatedPassword].includes('')) {
+    if ([name.trim(), email.trim(), password.trim(), repeatedPassword.trim()].includes('')) {
       setAlert({
         message: 'Todos los campos son obligatorios',
         error: true
@@ -88,8 +88,8 @@ const Register = () => {
             className="w-full border rounded-md p-2"
             value={name}
             onChange={handleChange}
+            required
           />
-          {/* required /> */}
           <input
             type="email"
             id="email"
@@ -97,28 +97,28 @@ const Register = () => {
             className="w-full border rounded-md p-2"
             value={email}
             onChange={handleChange}
+            required
           />
-          {/* required /> */}
           <input
             type="password"
             id="password"
             placeholder="Password"
             className="w-full border rounded-md p-2"
             value={password}
-            // minLength="6"
+            minLength="6"
             onChange={handleChange}
+            required
           />
-          {/* required /> */}
           <input
             type="password"
             id="repeatedPassword"
             placeholder="Repetir password"
             className="w-full border rounded-md p-2"
             value={repeatedPassword}
-            // minLength="6"
+            minLength="6"
             onChange={handleChange}
+            required
           />
-          {/* required /> */}
           <input
             type="submit"
             value="Registrar"
