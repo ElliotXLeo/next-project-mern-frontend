@@ -478,6 +478,21 @@ export const ProjectsProvider = ({ children }) => {
     setSearcher(!searcher);
   }
 
+  const logOutProjects = () => {
+    setLoading(false);
+    setAlert({});
+    setAlertTimeId(0);
+    setProjects([]);
+    setProject({});
+    setProjectDeleteModal(false);
+    setTask({});
+    setFormModalTask(false);
+    setTaskDeleteModal(false);
+    setDeveloper({});
+    setDeveloperDeleteModal(false);
+    setSearcher(false);
+  };
+
   return (
     <ProjectsContext.Provider
       value={{
@@ -509,7 +524,8 @@ export const ProjectsProvider = ({ children }) => {
         developerDeleteModal,
         handleDeveloperDeleteModal,
         searcher,
-        handleSearcher
+        handleSearcher,
+        logOutProjects
       }}
     >
       {children}

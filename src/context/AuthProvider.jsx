@@ -39,13 +39,20 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     };
     userAuthenticate();
-  }, [])
+  }, []);
+
+  const logOutAuth = () => {
+    setLoading(false);
+    setAuth({});
+  };
+
   return (
     <AuthContext.Provider
       value={{
         loading,
         auth,
-        setAuth
+        setAuth,
+        logOutAuth
       }}
     >
       {children}

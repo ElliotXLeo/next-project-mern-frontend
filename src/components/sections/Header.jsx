@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
 import Searcher from "./Searcher";
 import useProjects from "../../hooks/useProjects";
+import useAuth from "../../hooks/useAuth";
 
 const Header = () => {
+  const { logOutAuth } = useAuth();
+  const { searcher, handleSearcher, logOutProjects } = useProjects();
 
-  const { searcher, handleSearcher } = useProjects();
+  const handleLogOut = () => {
+    logOutAuth();
+    logOutProjects();
+    localStorage.removeItem('token');
+  };
+
   return (
     <header className="p-4 md:py-4 bg-white border-b">
       <div className="flex items-center justify-between container mx-auto">
@@ -18,7 +26,10 @@ const Header = () => {
           >
             Buscar
           </button>
-          <button className="bg-sky-600 rounded-md text-white text-xs font-bold uppercase p-1 transition-colors hover:bg-sky-700">
+          <button
+            className="bg-sky-600 rounded-md text-white text-xs font-bold uppercase p-1 transition-colors hover:bg-sky-700"
+            onClick={handleLogOut}
+          >
             Cerrar sesión
           </button>
           <Searcher />
