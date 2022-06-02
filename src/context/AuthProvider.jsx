@@ -30,7 +30,10 @@ export const AuthProvider = ({ children }) => {
             ...data,
             token
           });
-          // navigate('/projects');
+          if (window.location.pathname === '/') {
+            console.log('root');
+            navigate('/projects');
+          }
         } catch (error) {
           setAuth({});
           console.log(error);
@@ -50,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         loading,
+        setLoading,
         auth,
         setAuth,
         logOutAuth

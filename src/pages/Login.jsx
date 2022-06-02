@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
+  const { setLoading, setAuth } = useAuth();
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -40,6 +40,7 @@ const Login = () => {
       });
     } else {
       try {
+        setLoading(true);
         const method = 'POST';
         const resource = '/users/login';
         const options = {
@@ -64,6 +65,8 @@ const Login = () => {
           message: error.response.data.message,
           error: true
         });
+      } finally {
+        setLoading(false);
       }
     }
   };
