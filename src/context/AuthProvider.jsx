@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
             token
           });
           if (window.location.pathname === '/') {
-            console.log('root');
             navigate('/projects');
           }
         } catch (error) {
