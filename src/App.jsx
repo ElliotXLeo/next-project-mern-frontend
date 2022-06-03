@@ -10,6 +10,7 @@ import ProtectedRoute from './layouts/ProtectedRoute';
 import AddDeveloper from './pages/AddDeveloper';
 import Confirm from './pages/Confirm';
 import CreateProject from './pages/CreateProject';
+import Landings404Page from './pages/Landings404Page';
 import Login from './pages/Login';
 import NewPassword from './pages/NewPassword';
 import Project from './pages/Project';
@@ -38,7 +39,7 @@ function App() {
               <Route path='update/:id' element={<UpdateProject />} />
               <Route path='add-developer/:id' element={<AddDeveloper />} />
             </Route>
-            <Route path="*" element={<h1 className="text-8xl font-semibold text-yellow-300 text-center">404</h1>} />
+            <Route path="*" element={<Landings404Page />} />
           </Routes>
         </ProjectsProvider>
       </AuthProvider>
