@@ -1,45 +1,50 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import { AuthProvider } from './context/AuthProvider';
+import { ProjectsProvider } from './context/ProjectsProvider';
+import AuthLayout from './layouts/AuthLayout';
+import ProtectedRoute from './layouts/ProtectedRoute';
+import AddDeveloper from './pages/AddDeveloper';
+import Confirm from './pages/Confirm';
+import CreateProject from './pages/CreateProject';
+import Landings404Page from './pages/Landings404Page';
+import Login from './pages/Login';
+import NewPassword from './pages/NewPassword';
+import Project from './pages/Project';
+import Projects from './pages/Projects';
+import RecoverPassword from './pages/RecoverPassword';
+import Register from './pages/Register';
+import UpdateProject from './pages/UpdateProject';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
-}
+    <Router>
+      <AuthProvider>
+        <ProjectsProvider>
+          <Routes>
+            <Route path='/' element={<AuthLayout />}>
+              <Route index element={<Login />} />
+              <Route path='register' element={<Register />} />
+              <Route path='recover-password' element={<RecoverPassword />} />
+              <Route path='recover-password/:token' element={<NewPassword />} />
+              <Route path='confirm/:id' element={<Confirm />} />
+            </Route>
+            <Route path='/projects' element={<ProtectedRoute />}>
+              <Route index element={<Projects />} />
+              <Route path='create-project' element={<CreateProject />} />
+              <Route path=':id' element={<Project />} />
+              <Route path='update/:id' element={<UpdateProject />} />
+              <Route path='add-developer/:id' element={<AddDeveloper />} />
+            </Route>
+            <Route path="*" element={<Landings404Page />} />
+          </Routes>
+        </ProjectsProvider>
+      </AuthProvider>
+    </Router>
+  );
+};
 
-export default App
+export default App;
